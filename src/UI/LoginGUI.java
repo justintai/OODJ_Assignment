@@ -1,6 +1,8 @@
 package UI;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class LoginGUI extends JFrame {
     private JPanel mainPanel;
@@ -13,15 +15,31 @@ public class LoginGUI extends JFrame {
     private JLabel passLabel;
 
     public LoginGUI(String title) {
-        super(title);
-
+        this.setTitle(title);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(mainPanel);
-        this.pack();
+        this.setSize(500, 400);
+
+        registerBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFrame registerPage = new RegisterGUI(title);
+                registerPage.setVisible(true);
+
+                dispose();
+            }
+        });
+
+        loginBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         JFrame frame = new LoginGUI("COVID-19 Vaccination System");
         frame.setVisible(true);
-    }
+    }*/
 }
