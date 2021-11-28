@@ -15,4 +15,4 @@ Using Intellij IDEA
 3. choose jdatapicker-1.3.4.jar directory (which under UI package)
     ![This is an image](/image/directory.jpg)
     
-4. finally Apply and Save.
+4. finally Apply and Ok.
