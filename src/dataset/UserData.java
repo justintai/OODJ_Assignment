@@ -1,6 +1,10 @@
 package dataset;
 
+import Global.Global;
+
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -8,7 +12,7 @@ public class UserData {
     private String name, birthday, gender, address, email, icNo, passport, state;
     protected String password;
     private int telNo, age;
-    private static String file = "src/dataset/data/userdata.txt";
+    private static String file = Global.userFile;
     private int ln;
 
     public UserData(String name, String birthday, String gender, String address, String email, String icNo, String passport, String state, String password, int age, int telNo) {
@@ -25,10 +29,36 @@ public class UserData {
         this.age = age;
     }
 
+    static String stringConcat( String input )
+    {
+        String concat = input;
+        concat.trim();
+        return concat;
+    }
+
+    List<Object> getAllStringValues()
+    {
+        List<Object> summary = new ArrayList<>();
+        String addr = stringConcat(address);
+        summary.add(name);
+        summary.add(birthday);
+        summary.add(gender);
+        summary.add(addr);
+        summary.add(email);
+        summary.add(icNo);
+        summary.add(passport);
+        summary.add(state);
+        summary.add(password);
+        summary.add(age);
+        summary.add(telNo);
+
+        return summary;
+    }
+
     void countLines(){
         try {
             ln=0;
-            BufferedReader in = readUserData();
+            BufferedReader in = readAll();
             for(int i=0;in.readLine()!=null;i++){
                 ln++;
             }
@@ -41,9 +71,10 @@ public class UserData {
 
     }
 
-    public BufferedReader readUserData() {
+    public BufferedReader readAll() {
         try(BufferedReader in = new BufferedReader(new FileReader(file));) {
             System.out.println("File exists!");
+            System.out.println(file);
             return(in);
         }
         catch (FileNotFoundException ex) {
@@ -55,13 +86,33 @@ public class UserData {
         return null;
     }
 
-    public void insertUserData() {
-        try(PrintWriter out = new PrintWriter(new FileWriter(file));) {
-            for (int i=0; i<ln; i++) {
+    public void writeAll() {
+        File user = new File(file);
+        if(user.exists())
+        {
+            List<Object> wrt = getAllStringValues();
+            try(PrintWriter out = new PrintWriter(new FileWriter(file,true));) {
+                out.write("\r\n");
+                for (Object str : wrt) {
+                    out.write(str + "," + System.lineSeparator());
 
+
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+        else
+        {
+            List<Object> wrt = getAllStringValues();
+            try(PrintWriter out = new PrintWriter(new FileWriter(file));) {
+                for (Object str : wrt) {
+                    out.write(str + ",");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 }

@@ -117,7 +117,7 @@ public class RegisterGUI extends JFrame {
                     }
 
                     UserData user = new UserData(name, birthday, gender, address, email, icNo, passport, state, password, age, telNo);
-                    user.insertUserData();
+                    user.writeAll();
                 }
                 catch (NumberFormatException numberFormatException) {
                     JOptionPane.showMessageDialog(new JFrame(), "Please enter integer number for tel no or age!",
