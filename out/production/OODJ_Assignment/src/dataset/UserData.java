@@ -30,7 +30,7 @@ public class UserData {
         this.age = age;
     }
 
-    public RandomAccessFile readUserData() {
+    public void readUserData() {
         try(RandomAccessFile raf = new RandomAccessFile(file, "rw");) {
             ln=0;
             for(int i=0;raf.readLine()!=null;i++){
@@ -42,8 +42,6 @@ public class UserData {
                 userNo++;
             }
             System.out.println("User number: "+userNo);
-
-            return(raf);
         }
         catch (FileNotFoundException ex) {
             try {
@@ -57,7 +55,6 @@ public class UserData {
         catch (IOException ex) {
             Logger.getLogger(UserData.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
     }
 
     public void insertUserData() {
@@ -86,17 +83,17 @@ public class UserData {
     }
 
     public void checkLogin(String usr, String psd) {
-        RandomAccessFile data = readUserData();
 
-        try(RandomAccessFile raf = readUserData();) {
+        RandomAccessFile data;
+        try {
+            data = new RandomAccessFile(file, "rw");
             for(int i=0; i<ln; i+=13) {
-                String userID = raf.readLine().substring(5);
-                String passport = raf.readLine().substring(11);
-                String userName = raf.readLine().substring(5);
-                for (int j = 1; j < 8; j++)
-                    raf.readLine();
+                String userID = data.readLine().substring(5);
+                String passport = data.readLine().substring(11);
+                String userName = data.readLine().substring(5);
+                for (int j = 1; j < 8; j++) data.readLine();
 
-                String password = raf.readLine().substring(9);
+                String password = data.readLine().substring(9);
 
                 if (usr.equals(userID) & psd.equals(password)) {
                     JOptionPane.showMessageDialog(null, "Welcome " + userName);
@@ -110,7 +107,7 @@ public class UserData {
                 }
 
                 for(int z=0; z<2; z++)
-                    raf.readLine();
+                    data.readLine();
             }
         } catch (IOException e) {
             e.printStackTrace();

@@ -41,7 +41,6 @@ public class LoginGUI extends JFrame {
 
                 if(!userTF.getText().isEmpty() && !passTF.getText().isEmpty()) {
                     UserData data = new UserData();
-                    System.out.println(userTF.getText());
                     data.checkLogin(userTF.getText(), passTF.getText());
                 }
                 else {

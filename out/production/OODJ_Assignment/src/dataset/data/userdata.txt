@@ -1,9 +1,25 @@
-Name:gsdgs
-Birthday:24-11-2021
+ICNo:000412011137
+PassportNo:null
+Name:Justin Tai
+Birthday:07-11-1995
 gender:Male
+Age:21
+TelNo:1234564
+Email:thrthrth
+Address:ersefsdfgfstewrtwer
+State:Johor
+Password:123456
+isAdmin:0
 
-
-Name:gsdgs1
-Birthday:24-11-2021
-gender:Male
-
+ICNo:null
+PassportNo:AQ124348542
+Name:Beta
+Birthday:18-11-2009
+gender:Female
+Age:21
+TelNo:4213123
+Email:fgdfgfgdfg
+Address:fgdfgsdgdfhg
+State:Kuala Lumpur
+Password:456123
+isAdmin:0
