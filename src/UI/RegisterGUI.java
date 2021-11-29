@@ -84,27 +84,99 @@ public class RegisterGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    String name = nameTF.getText();
-                    Date d = (Date)datePicker.getModel().getValue();
-                    String birthday = new SimpleDateFormat("dd-MM-yyyy").format(d);
-                    String gender = (String) genderComboB.getSelectedItem();
-                    int telNo = Integer.parseInt(telTF.getText());
-                    String address = addressTF.getText();
-                    String email = emailTF.getText();
-                    int age = Integer.parseInt(ageTF.getText());
-                    int isAdmin = 0;
+                    String checkName="",
+                            checkBirthday="",
+                            checkTel="",
+                            checkAddress="",
+                            checkEmail="",
+                            checkAge="",
+                            checkIc="",
+                            checkPassport="",
+                            checkPassword="";
 
-                    String icNo, passport;
-                    if(foreignerCB.isSelected()) {
-                        icNo = null;
-                        passport = passportTF.getText();
+                    String name = null,
+                            birthday = null,
+                            gender = null,
+                            address = null,
+                            email = null,
+                            state = null,
+                            icNo = null,
+                            passport = null;
+
+                    int telNo = 0, age = 0, isAdmin=0;
+
+                    if(!nameTF.getText().isEmpty()){
+                        name = nameTF.getText();
                     }
                     else {
-                        icNo = icTF.getText();
-                        passport = null;
+                        checkName = "Enter name.\n";
                     }
 
-                    String state = (String)stateComboB.getSelectedItem();
+                    Date d = (Date)datePicker.getModel().getValue();
+                    if(d != null)
+                    {
+                        try {
+                            birthday = new SimpleDateFormat("dd-MM-yyyy").format(d);
+                        }
+                        catch (NullPointerException nullPointerException) {
+                            checkBirthday = "Enter valid date!\n";
+                        }
+                    }
+                    else{
+                        checkBirthday = "Enter birthday.\n";
+                    }
+
+                    gender = (String) genderComboB.getSelectedItem();
+
+                    if(!telTF.getText().isEmpty() && Integer.parseInt(telTF.getText()) != 0) {
+                        telNo = Integer.parseInt(telTF.getText());
+                    }
+                    else{
+                        checkTel = "Enter telephone number.\n";
+                    }
+
+                    if(!addressTF.getText().isEmpty()) {
+                        address = addressTF.getText();
+                    }
+                    else{
+                        checkAddress = "Enter address.\n";
+                    }
+
+                    if(!emailTF.getText().isEmpty()){
+                        email = emailTF.getText();
+                    }
+                    else{
+                        checkEmail = "Enter email.\n";
+                    }
+
+                    if(!ageTF.getText().isEmpty() && Integer.parseInt(ageTF.getText()) != 0){
+                        age = Integer.parseInt(ageTF.getText());
+                    }
+                    else{
+                        checkAge = "Enter age.\n";
+                    }
+
+                    if(foreignerCB.isSelected()) {
+                        icNo = null;
+                        if(!passportTF.getText().isEmpty()){
+                            passport = passportTF.getText();
+                        }
+                        else{
+                            checkPassport = "Enter passport number.\n";
+                        }
+                    }
+                    else {
+                        passport = null;
+                        if(!icTF.getText().isEmpty()){
+                            icNo = icTF.getText();
+                        }
+                        else {
+                            checkIc = "Enter IC number.\n";
+                        }
+                    }
+
+                    state = (String)stateComboB.getSelectedItem();
+
                     String pass = passwordField1.getText();
                     String conPassword = passwordField2.getText();
                     String password = null;
@@ -112,14 +184,36 @@ public class RegisterGUI extends JFrame {
                         if(pass.equals(conPassword)){
                             password = pass;
                         }
+                        else{
+                            checkPassword = "The password not match!\n";
+                        }
                     }
                     else {
-                        JOptionPane.showMessageDialog(new JFrame(), "Password fields cannot be empty!",
-                                "Register", JOptionPane.ERROR_MESSAGE);
+                        checkPassword = "Password fields cannot be empty!\n";
                     }
 
-                    UserData user = new UserData(name, birthday, gender, address, email, icNo, passport, state, password, age, telNo, isAdmin);
-                    user.writeAll();
+                    if(checkName == "" && checkBirthday == "" && checkTel == "" &&
+                            checkAddress == "" && checkEmail == "" && checkAge == "" &&
+                            checkIc == "" && checkPassport=="" && checkPassword == ""){
+                        UserData user = new UserData(name, birthday, gender, address, email, icNo, passport, state, password, age, telNo, isAdmin);
+                        user.writeAll();
+
+                        JOptionPane.showMessageDialog(new JFrame(), "The user had been registered.",
+                                "Register", JOptionPane.INFORMATION_MESSAGE);
+
+                        JFrame loginPage = new LoginGUI(title);
+                        loginPage.setLocationRelativeTo(null);
+                        loginPage.setVisible(true);
+
+                        dispose();
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(new JFrame(), "Please fulfill the requirement(s):\n" +
+                                        checkName + checkBirthday + checkTel +
+                                        checkAddress + checkEmail + checkAge +
+                                        checkIc  + checkPassport + checkPassword,
+                                "Register", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
                 catch (NumberFormatException numberFormatException) {
                     JOptionPane.showMessageDialog(new JFrame(), "Please enter integer number for tel no or age!",
@@ -164,6 +258,5 @@ public class RegisterGUI extends JFrame {
 
             return "";
         }
-
     }
 }
