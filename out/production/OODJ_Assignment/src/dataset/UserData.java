@@ -11,11 +11,11 @@ import java.util.logging.Logger;
 public class UserData {
     private String name, birthday, gender, address, email, icNo, passport, state;
     protected String password;
-    private int telNo, age;
+    private int telNo, age, isAdmin = 0;
     private static String file = Global.userFile;
     private int ln;
 
-    public UserData(String name, String birthday, String gender, String address, String email, String icNo, String passport, String state, String password, int age, int telNo) {
+    public UserData(String name, String birthday, String gender, String address, String email, String icNo, String passport, String state, String password, int age, int telNo, int isAdmin) {
         this.name = name;
         this.birthday = birthday;
         this.gender = gender;
@@ -27,6 +27,7 @@ public class UserData {
         this.state = state;
         this.telNo = telNo;
         this.age = age;
+        this.isAdmin = isAdmin;
     }
 
     static String stringConcat( String input )
@@ -36,21 +37,22 @@ public class UserData {
         return concat;
     }
 
-    List<Object> getAllStringValues()
+    public List<Object> getAllStringValues()
     {
         List<Object> summary = new ArrayList<>();
         String addr = stringConcat(address);
+        summary.add(icNo);
+        summary.add(passport);
         summary.add(name);
         summary.add(birthday);
         summary.add(gender);
-        summary.add(addr);
-        summary.add(email);
-        summary.add(icNo);
-        summary.add(passport);
-        summary.add(state);
-        summary.add(password);
         summary.add(age);
         summary.add(telNo);
+        summary.add(email);
+        summary.add(addr);
+        summary.add(state);
+        summary.add(password);
+        summary.add(isAdmin);
 
         return summary;
     }
@@ -74,6 +76,7 @@ public class UserData {
     public BufferedReader readAll() {
         try(BufferedReader in = new BufferedReader(new FileReader(file));) {
             System.out.println("File exists!");
+            System.out.println(file);
             return(in);
         }
         catch (FileNotFoundException ex) {
@@ -91,11 +94,9 @@ public class UserData {
         {
             List<Object> wrt = getAllStringValues();
             try(PrintWriter out = new PrintWriter(new FileWriter(file,true));) {
-                out.write("\r\n");
+                out.println();
                 for (Object str : wrt) {
-                    out.write(str + "," + System.lineSeparator());
-
-
+                    out.write(str + "|");
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -106,7 +107,7 @@ public class UserData {
             List<Object> wrt = getAllStringValues();
             try(PrintWriter out = new PrintWriter(new FileWriter(file));) {
                 for (Object str : wrt) {
-                    out.write(str + ",");
+                    out.write(str + "|");
                 }
             } catch (IOException e) {
                 e.printStackTrace();

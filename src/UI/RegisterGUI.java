@@ -58,6 +58,7 @@ public class RegisterGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFrame mainPage = new LoginGUI(title);
+                mainPage.setLocationRelativeTo(null);
                 mainPage.setVisible(true);
 
                 dispose();
@@ -91,6 +92,7 @@ public class RegisterGUI extends JFrame {
                     String address = addressTF.getText();
                     String email = emailTF.getText();
                     int age = Integer.parseInt(ageTF.getText());
+                    int isAdmin = 0;
 
                     String icNo, passport;
                     if(foreignerCB.isSelected()) {
@@ -116,7 +118,7 @@ public class RegisterGUI extends JFrame {
                                 "Register", JOptionPane.ERROR_MESSAGE);
                     }
 
-                    UserData user = new UserData(name, birthday, gender, address, email, icNo, passport, state, password, age, telNo);
+                    UserData user = new UserData(name, birthday, gender, address, email, icNo, passport, state, password, age, telNo, isAdmin);
                     user.writeAll();
                 }
                 catch (NumberFormatException numberFormatException) {

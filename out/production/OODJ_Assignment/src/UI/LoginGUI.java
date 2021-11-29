@@ -24,6 +24,7 @@ public class LoginGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFrame registerPage = new RegisterGUI(title);
+                registerPage.setLocationRelativeTo(null);
                 registerPage.setVisible(true);
 
                 dispose();
