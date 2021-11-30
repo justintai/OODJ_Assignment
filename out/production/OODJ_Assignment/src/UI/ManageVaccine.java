@@ -22,6 +22,7 @@ public class ManageVaccine extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 Personnel.personnelPage();
+                dispose();
             }
         });
 

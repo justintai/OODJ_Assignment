@@ -127,12 +127,14 @@ public class UserData {
 
     public void updateUser() {
         List<Object> wrt = getAllStringValues();
+        String[] usrData;
         String line;
 
         try(PrintWriter out = new PrintWriter(new FileWriter(Global.userFile,true));) {
             BufferedReader in = new BufferedReader(new FileReader(Global.userFile));
             while((line = in.readLine()) != null)
             {
+                usrData = line.split("%");
                 if(line.contains((CharSequence) wrt.get(0)))
                 {
                     System.out.println(line);

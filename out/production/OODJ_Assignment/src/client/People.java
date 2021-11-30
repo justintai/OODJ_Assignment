@@ -1,6 +1,5 @@
 package client;
 
-import UI.Index;
 import UI.IndexGUI;
 import UI.UpdateProfileGUI;
 
@@ -12,12 +11,6 @@ public class People extends User {
 
     public People() {
         this.title = super.getTitle();
-    }
-
-    public static void peoplePage() {
-        JFrame indexPage = new Index(title);
-        indexPage.setLocationRelativeTo(null);
-        indexPage.setVisible(true);
     }
 
     public static void peoplePage(String[] peopleData) {

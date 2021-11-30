@@ -1,8 +1,6 @@
 package client;
 
-import UI.Index;
 import UI.LoginGUI;
-import UI.PersonnelGUI;
 import UI.RegisterGUI;
 
 import javax.swing.*;
