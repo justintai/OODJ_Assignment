@@ -27,15 +27,7 @@ public class User {
         registerPage.setVisible(true);
     }
 
-    public static void peoplePage() {
-        JFrame indexPage = new Index(title);
-        indexPage.setLocationRelativeTo(null);
-        indexPage.setVisible(true);
-    }
-
-    public static void personnelPage() {
-        JFrame personnelPage = new PersonnelGUI(title);
-        personnelPage.setLocationRelativeTo(null);
-        personnelPage.setVisible(true);
+    public String getTitle() {
+        return title;
     }
 }

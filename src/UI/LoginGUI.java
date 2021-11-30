@@ -1,7 +1,9 @@
 package UI;
 
+import client.People;
 import client.User;
 import dataset.UserData;
+import personnel.Personnel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -43,11 +45,11 @@ public class LoginGUI extends JFrame {
 
                     if(usrData != null){
                         if(usrData[11].equals("0")) {
-                            User.peoplePage();
+                            People.peoplePage();
                             dispose();
                         }
                         else if(usrData[11].equals("1")) {
-                            User.personnelPage();
+                            Personnel.personnelPage(usrData);
                             dispose();
                         }
                     }
