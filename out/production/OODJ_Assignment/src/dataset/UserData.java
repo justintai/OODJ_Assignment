@@ -11,11 +11,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class UserData {
+
     private String name, birthday, gender, address, email, icNo, passport, state;
     protected String password;
+    private String[] identifyUser = null;
     private int telNo, age, isAdmin = 0;
     private int userNo;
     private Stack<String[]> userData = new Stack<String[]>();
+
+
 
     public UserData() {
         readAll();
@@ -118,6 +122,28 @@ public class UserData {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    public void updateUser() {
+        List<Object> wrt = getAllStringValues();
+        String line;
+
+        try(PrintWriter out = new PrintWriter(new FileWriter(Global.userFile,true));) {
+            BufferedReader in = new BufferedReader(new FileReader(Global.userFile));
+            while((line = in.readLine()) != null)
+            {
+                if(line.contains((CharSequence) wrt.get(0)))
+                {
+                    System.out.println(line);
+                    System.out.println(String.valueOf(wrt));
+                    line = line.replaceAll(line, String.valueOf(wrt));
+                }
+
+            }
+            out.write(line);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
