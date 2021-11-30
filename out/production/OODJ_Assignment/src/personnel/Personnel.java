@@ -10,12 +10,14 @@ import javax.swing.*;
 public class Personnel extends User {
 
     private static String title;
+    private static String[] usrData;
 
-    public Personnel() {
+    public Personnel(String[] usrData) {
         this.title = super.getTitle();
+        this.usrData = usrData;
     }
 
-    public static void personnelPage(String[] usrData) {
+    public static void personnelPage() {
         JFrame personnelPage = new PersonnelGUI(title, usrData);
         personnelPage.setLocationRelativeTo(null);
         personnelPage.setVisible(true);

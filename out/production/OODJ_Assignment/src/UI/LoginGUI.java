@@ -49,7 +49,8 @@ public class LoginGUI extends JFrame {
                             dispose();
                         }
                         else if(usrData[11].equals("1")) {
-                            Personnel.personnelPage(usrData);
+                            Personnel personnel = new Personnel(usrData);
+                            personnel.personnelPage();
                             dispose();
                         }
                     }
