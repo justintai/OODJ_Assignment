@@ -127,12 +127,20 @@ public class UserData {
 
         for(int i=0; i<UserData.size(); i++) {
             if(userID.equals(UserData.get(i)[0]) & password.equals(UserData.get(i)[10])) {
-                msg = "Welcome "+UserData.get(i)[2];
+                JOptionPane.showMessageDialog(null,
+                        "Welcome "+UserData.get(i)[2],
+                        "Login",
+                        JOptionPane.INFORMATION_MESSAGE);
                 loginAdmin = UserData.get(i);
+                return loginAdmin;
             }
             else if(userID.equals(UserData.get(i)[1]) & password.equals(UserData.get(i)[10])) {
-                msg = "Welcome "+UserData.get(i)[2];
+                JOptionPane.showMessageDialog(null,
+                        "Welcome "+UserData.get(i)[2],
+                        "Login",
+                        JOptionPane.INFORMATION_MESSAGE);
                 loginAdmin = UserData.get(i);
+                return loginAdmin;
             }
             else  {
                 msg = "Incorrect username/password.";
