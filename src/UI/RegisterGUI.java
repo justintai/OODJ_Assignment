@@ -1,5 +1,6 @@
 package UI;
 
+import client.User;
 import dataset.UserData;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
@@ -72,9 +73,7 @@ public class RegisterGUI extends JFrame {
         backBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFrame mainPage = new LoginGUI(title);
-                mainPage.setLocationRelativeTo(null);
-                mainPage.setVisible(true);
+                User.loginPage();
 
                 dispose();
             }
@@ -216,9 +215,7 @@ public class RegisterGUI extends JFrame {
                         JOptionPane.showMessageDialog(new JFrame(), "The user had been registered.",
                                 "Register", JOptionPane.INFORMATION_MESSAGE);
 
-                        JFrame loginPage = new LoginGUI(title);
-                        loginPage.setLocationRelativeTo(null);
-                        loginPage.setVisible(true);
+                        User.loginPage();
 
                         dispose();
                     }
