@@ -15,7 +15,7 @@ public class UserData {
     protected String password;
     private int telNo, age, isAdmin = 0;
     private int userNo;
-    private Stack<String[]> UserData = new Stack<String[]>();
+    private Stack<String[]> userData = new Stack<String[]>();
 
     public UserData() {
         readAll();
@@ -78,7 +78,7 @@ public class UserData {
         try(BufferedReader in = new BufferedReader(new FileReader(Global.userFile));) {
             while((line = in.readLine()) !=null) {
                 usrData = line.split("%");
-                UserData.push(usrData);
+                userData.push(usrData);
             }
         }
         catch (FileNotFoundException ex) {
@@ -91,7 +91,7 @@ public class UserData {
     }
 
     public Stack<String[]> getUserData() {
-        return UserData;
+        return userData;
     }
 
     public void writeAll() {
@@ -125,21 +125,21 @@ public class UserData {
         String[] loginAdmin = null;
         String msg = "";
 
-        for(int i=0; i<UserData.size(); i++) {
-            if(userID.equals(UserData.get(i)[0]) & password.equals(UserData.get(i)[10])) {
+        for(int i=0; i<userData.size(); i++) {
+            if(userID.equals(userData.get(i)[0]) & password.equals(userData.get(i)[10])) {
                 JOptionPane.showMessageDialog(null,
-                        "Welcome "+UserData.get(i)[2],
+                        "Welcome "+userData.get(i)[2],
                         "Login",
                         JOptionPane.INFORMATION_MESSAGE);
-                loginAdmin = UserData.get(i);
+                loginAdmin = userData.get(i);
                 return loginAdmin;
             }
-            else if(userID.equals(UserData.get(i)[1]) & password.equals(UserData.get(i)[10])) {
+            else if(userID.equals(userData.get(i)[1]) & password.equals(userData.get(i)[10])) {
                 JOptionPane.showMessageDialog(null,
-                        "Welcome "+UserData.get(i)[2],
+                        "Welcome "+userData.get(i)[2],
                         "Login",
                         JOptionPane.INFORMATION_MESSAGE);
-                loginAdmin = UserData.get(i);
+                loginAdmin = userData.get(i);
                 return loginAdmin;
             }
             else  {

@@ -30,4 +30,9 @@ public class User {
     public String getTitle() {
         return title;
     }
+
+    public static void logout() {
+        System.gc();
+        loginPage();
+    }
 }
