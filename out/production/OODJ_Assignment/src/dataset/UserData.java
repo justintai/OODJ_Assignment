@@ -121,22 +121,22 @@ public class UserData {
         }
     }
 
-    public int checkLogin(String userID, String password) {
-        int loginAdmin = 3;
+    public String[] checkLogin(String userID, String password) {
+        String[] loginAdmin = null;
         String msg = "";
 
         for(int i=0; i<UserData.size(); i++) {
             if(userID.equals(UserData.get(i)[0]) & password.equals(UserData.get(i)[10])) {
                 msg = "Welcome "+UserData.get(i)[2];
-                loginAdmin = Integer.parseInt(UserData.get(i)[11]);
+                loginAdmin = UserData.get(i);
             }
             else if(userID.equals(UserData.get(i)[1]) & password.equals(UserData.get(i)[10])) {
                 msg = "Welcome "+UserData.get(i)[2];
-                loginAdmin = Integer.parseInt(UserData.get(i)[11]);
+                loginAdmin = UserData.get(i);
             }
             else  {
                 msg = "Incorrect username/password.";
-                loginAdmin = 3;
+                loginAdmin = null;
             }
         }
 

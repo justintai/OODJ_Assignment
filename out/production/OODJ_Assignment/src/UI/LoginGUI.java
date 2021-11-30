@@ -5,6 +5,7 @@ import dataset.UserData;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Stack;
 
 public class LoginGUI extends JFrame {
     private JPanel mainPanel;
@@ -40,17 +41,21 @@ public class LoginGUI extends JFrame {
 
                 if(!userTF.getText().isEmpty() && !passTF.getText().isEmpty()) {
                     UserData data = new UserData();
-                    int loginAdmin = data.checkLogin(userTF.getText(), passTF.getText());
+                    String[] usrData = data.checkLogin(userTF.getText(), passTF.getText());
 
-                    if(loginAdmin == 0) {
+                    if(usrData[11].equals("0")) {
                         JFrame indexPage = new Index(title);
                         indexPage.setLocationRelativeTo(null);
                         indexPage.setVisible(true);
 
                         dispose();
                     }
-                    else if(loginAdmin == 1) {
+                    else if(usrData[11].equals("1")) {
+                        JFrame personnelPage = new PersonnelGUI(title);
+                        personnelPage.setLocationRelativeTo(null);
+                        personnelPage.setVisible(true);
 
+                        dispose();
                     }
                 }
                 else {
