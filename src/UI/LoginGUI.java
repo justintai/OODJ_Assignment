@@ -40,7 +40,6 @@ public class LoginGUI extends JFrame {
 
                 if(!userTF.getText().isEmpty() && !passTF.getText().isEmpty()) {
                     UserData data = new UserData();
-                    data.readAll();
                     int loginAdmin = data.checkLogin(userTF.getText(), passTF.getText());
 
                     if(loginAdmin == 0) {

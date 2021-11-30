@@ -17,7 +17,9 @@ public class UserData {
     private int userNo;
     private Stack<String[]> UserData = new Stack<String[]>();
 
-    public UserData() {}
+    public UserData() {
+        readAll();
+    }
 
     public UserData(String name, String birthday, String gender, String address, String email, String icNo, String passport, String state, String password, int age, int telNo, int isAdmin) {
         this.name = name;
@@ -86,6 +88,10 @@ public class UserData {
         catch (IOException ex) {
             Logger.getLogger(UserData.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public Stack<String[]> getUserData() {
+        return UserData;
     }
 
     public void writeAll() {

@@ -156,10 +156,18 @@ public class RegisterGUI extends JFrame {
                         checkAge = "Enter age.\n";
                     }
 
+                    UserData userData = new UserData();
+                    Stack<String[]> data = userData.getUserData();
                     if(foreignerCB.isSelected()) {
                         icNo = null;
                         if(!passportTF.getText().isEmpty()){
-                            passport = passportTF.getText();
+                            for(int i=0; i<data.size(); i++) {
+                                if (!passportTF.getText().equals(data.get(i)[1])) {
+                                    passport = passportTF.getText();
+                                } else {
+                                    checkPassport = "This passport already registered.";
+                                }
+                            }
                         }
                         else{
                             checkPassport = "Enter passport number.\n";
@@ -168,7 +176,13 @@ public class RegisterGUI extends JFrame {
                     else {
                         passport = null;
                         if(!icTF.getText().isEmpty()){
-                            icNo = icTF.getText();
+                            for(int i=0; i<data.size(); i++) {
+                                if (!icTF.getText().equals(data.get(i)[0])) {
+                                    icNo = icTF.getText();
+                                } else {
+                                    checkPassport = "This IC already registered.";
+                                }
+                            }
                         }
                         else {
                             checkIc = "Enter IC number.\n";
