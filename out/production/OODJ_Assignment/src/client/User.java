@@ -1,6 +1,10 @@
 package client;
 
 import UI.LoginGUI;
+<<<<<<< Updated upstream
+=======
+import UI.RegisterGUI;
+>>>>>>> Stashed changes
 
 import javax.swing.*;
 

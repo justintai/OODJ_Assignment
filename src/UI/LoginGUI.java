@@ -1,6 +1,9 @@
 package UI;
 
+import client.People;
+import client.User;
 import dataset.UserData;
+//import personnel.Personnel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -26,10 +29,7 @@ public class LoginGUI extends JFrame {
         registerBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFrame registerPage = new RegisterGUI(title);
-                registerPage.setLocationRelativeTo(null);
-                registerPage.setVisible(true);
-
+                User.registerUser();
                 dispose();
             }
         });
@@ -43,19 +43,15 @@ public class LoginGUI extends JFrame {
                     UserData data = new UserData();
                     String[] usrData = data.checkLogin(userTF.getText(), passTF.getText());
 
-                    if(usrData[11].equals("0")) {
-                        JFrame indexPage = new Index(title);
-                        indexPage.setLocationRelativeTo(null);
-                        indexPage.setVisible(true);
-
-                        dispose();
-                    }
-                    else if(usrData[11].equals("1")) {
-                        JFrame personnelPage = new PersonnelGUI(title);
-                        personnelPage.setLocationRelativeTo(null);
-                        personnelPage.setVisible(true);
-
-                        dispose();
+                    if(usrData != null){
+                        if(usrData[11].equals("0")) {
+                            People.peoplePage(usrData);
+                            dispose();
+                        }
+                        else if(usrData[11].equals("1")) {
+//                            Personnel.personnelPage(usrData);
+                            dispose();
+                        }
                     }
                 }
                 else {

@@ -43,6 +43,7 @@ public class LoginGUI extends JFrame {
                     UserData data = new UserData();
                     String[] usrData = data.checkLogin(userTF.getText(), passTF.getText());
 
+<<<<<<< Updated upstream
                     if(usrData[11].equals("0")) {
                         JFrame indexPage = new Index(title);
                         indexPage.setLocationRelativeTo(null);
@@ -56,6 +57,17 @@ public class LoginGUI extends JFrame {
                         personnelPage.setVisible(true);
 
                         dispose();
+=======
+                    if(usrData != null){
+                        if(usrData[11].equals("0")) {
+                            People.peoplePage(usrData);
+                            dispose();
+                        }
+                        else if(usrData[11].equals("1")) {
+                            Personnel.personnelPage(usrData);
+                            dispose();
+                        }
+>>>>>>> Stashed changes
                     }
                 }
                 else {

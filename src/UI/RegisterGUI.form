@@ -3,7 +3,7 @@
   <grid id="27dc6" binding="registerPanel" layout-manager="GridLayoutManager" row-count="17" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="40" left="20" bottom="40" right="20"/>
     <constraints>
-      <xy x="20" y="20" width="500" height="673"/>
+      <xy x="20" y="20" width="511" height="673"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -15,22 +15,6 @@
         <properties>
           <font name="Source Code Pro Black" size="24"/>
           <text value="Registration"/>
-        </properties>
-      </component>
-      <component id="7f72b" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="Name: "/>
-        </properties>
-      </component>
-      <component id="20145" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="IC No (for Malaysian): "/>
         </properties>
       </component>
       <component id="8093c" class="javax.swing.JLabel">
@@ -278,6 +262,22 @@
           </component>
         </children>
       </grid>
+      <component id="7f72b" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Name: "/>
+        </properties>
+      </component>
+      <component id="20145" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="IC No (for Malaysian): "/>
+        </properties>
+      </component>
     </children>
   </grid>
 </form>
