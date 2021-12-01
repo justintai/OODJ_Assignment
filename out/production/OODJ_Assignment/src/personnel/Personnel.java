@@ -8,6 +8,7 @@ import client.User;
 import dataset.VaccineData;
 
 import javax.swing.*;
+import java.util.Stack;
 
 public class Personnel extends User {
 
@@ -37,8 +38,8 @@ public class Personnel extends User {
         manageVaccinePage.setVisible(true);
     }
 
-    public static void addVaccinePage(int isEdit) {
-        JFrame addVaccinePage = new AddVaccineGUI(title, isEdit);
+    public static void addVaccinePage(int editLine, int isEdit) {
+        JFrame addVaccinePage = new AddVaccineGUI(title, editLine, isEdit);
         addVaccinePage.setLocationRelativeTo(null);
         addVaccinePage.setVisible(true);
     }
@@ -46,5 +47,10 @@ public class Personnel extends User {
     public static void addVaccine(String code, String name, String manufacture, int stock) {
         VaccineData vaccine = new VaccineData(code, name, manufacture, stock);
         vaccine.writeAll();
+    }
+
+    public static void updateVaccine(Stack<String[]> data) {
+        VaccineData vaccine = new VaccineData();
+        vaccine.updateVaccineData(data);
     }
 }
