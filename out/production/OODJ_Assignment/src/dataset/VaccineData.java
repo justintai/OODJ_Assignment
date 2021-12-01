@@ -41,29 +41,10 @@ public class VaccineData {
     }
 
     public void writeAll() {
-        File file = new File(Global.userFile);
-        if(file.exists()) {
-            readAll();
-            String checkCode = "",
-                    checkName = "",
-                    checkMan = "";
-
-            for(int i=0; i<vaccineData.size(); i++) {
-                if(summary.get(0) != null) {
-                    if(summary.get(0).equals(vaccineData.get(i)[0])){
-                        checkCode = "This code is registered!\n";
-                    }
-                }
-                else {
-                    checkCode = "Enter vaccine code.";
-                }
-            }
-
-            checkName = (summary.get(1) == null) ? "Enter vaccine name" : "";
-            checkMan = (summary.get(2) == null) ? "Enter Manufacture" : "";
-
-            // do write vaccine
-            try(PrintWriter out = new PrintWriter(new FileWriter(Global.vaccineFile,true));) {
+        File file = new File(Global.vaccineFile);
+        if(file.exists())
+        {
+            try(PrintWriter out = new PrintWriter(new FileWriter(file,true));) {
                 out.println();
                 for (Object str : summary) {
                     out.write(str + "%");
@@ -72,9 +53,12 @@ public class VaccineData {
                 e.printStackTrace();
             }
         }
-        else {
-            try(PrintWriter out = new PrintWriter(new FileWriter(Global.vaccineFile));) {
-                writeAll();
+        else
+        {
+            try(PrintWriter out = new PrintWriter(new FileWriter(file));) {
+                for (Object str : summary) {
+                    out.write(str + "%");
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -83,7 +67,7 @@ public class VaccineData {
 
     public void readAll() {
         String vacData[], line;
-        try(BufferedReader in = new BufferedReader(new FileReader(Global.userFile));) {
+        try(BufferedReader in = new BufferedReader(new FileReader(Global.vaccineFile));) {
             while((line = in.readLine()) !=null) {
                 vacData = line.split("%");
                 vaccineData.push(vacData);
@@ -96,5 +80,9 @@ public class VaccineData {
         catch (IOException ex) {
             Logger.getLogger(VaccineData.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public void updateVaccineData(Stack<String[]> newData) {
+
     }
 }
