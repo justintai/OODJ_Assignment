@@ -8,19 +8,21 @@ import javax.swing.*;
 public class People extends User {
 
     private static String title;
+    private static String[] peopleData;
 
-    public People() {
+    public People(String[] peopleData) {
         this.title = super.getTitle();
+        this.peopleData = peopleData;
     }
 
-    public static void peoplePage(String[] peopleData) {
+    public static void peoplePage() {
         JFrame indexPage = new IndexGUI(title, peopleData);
         indexPage.setLocationRelativeTo(null);
         indexPage.setVisible(true);
     }
-    public static void UpdateProfilePage(String[] updateData)
+    public static void UpdateProfilePage()
     {
-        JFrame updateProfile = new UpdateProfileGUI(title, updateData);
+        JFrame updateProfile = new UpdateProfileGUI(title, peopleData);
         updateProfile.setLocationRelativeTo(null);
         updateProfile.setVisible(true);
     }

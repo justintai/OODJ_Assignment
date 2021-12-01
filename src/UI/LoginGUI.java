@@ -45,7 +45,8 @@ public class LoginGUI extends JFrame {
 
                     if(usrData != null){
                         if(usrData[11].equals("0")) {
-                            People.peoplePage(usrData);
+                            People people = new People(usrData);
+                            People.peoplePage();
                             dispose();
                         }
                         else if(usrData[11].equals("1")) {

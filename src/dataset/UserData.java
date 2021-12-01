@@ -14,7 +14,6 @@ public class UserData {
 
     private String name, birthday, gender, address, email, icNo, passport, state;
     protected String password;
-    private String[] identifyUser = null;
     private int telNo, age, isAdmin = 0;
     private int userNo;
     private Stack<String[]> userData = new Stack<String[]>();
@@ -125,28 +124,44 @@ public class UserData {
         }
     }
 
-    public void updateUser() {
+    public String[] updateUser() {
         List<Object> wrt = getAllStringValues();
-        String[] usrData;
-        String line;
+        int num = 0;
 
         try(PrintWriter out = new PrintWriter(new FileWriter(Global.userFile,true));) {
-            BufferedReader in = new BufferedReader(new FileReader(Global.userFile));
-            while((line = in.readLine()) != null)
+            readAll();
+            try(PrintWriter clean = new PrintWriter(new FileWriter(Global.userFile, false));)
             {
-                usrData = line.split("%");
-                if(line.contains((CharSequence) wrt.get(0)))
+                clean.flush();
+                clean.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            for(int i = 0; i < userData.size(); i++)
+            {
+                if(userData.get(i)[0].equals(icNo) || userData.get(i)[1].equals(passport))
                 {
-                    System.out.println(line);
-                    System.out.println(String.valueOf(wrt));
-                    line = line.replaceAll(line, String.valueOf(wrt));
+                    num = i;
+                    for(int z = 0; z < userData.get(i).length; z++)
+                    {
+                        userData.get(i)[z] = wrt.get(z).toString();
+                    }
                 }
 
+                for(int j = 0; j < userData.get(i).length; j++)
+                {
+                    out.write(userData.get(i)[j] + "%");
+                }
+                out.println();
             }
-            out.write(line);
+            JOptionPane.showMessageDialog(new JFrame(), "User have been updated",
+                    "Register", JOptionPane.INFORMATION_MESSAGE);
+            return userData.get(num);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     public String[] checkLogin(String userID, String password) {

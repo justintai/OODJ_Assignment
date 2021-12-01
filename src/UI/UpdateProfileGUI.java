@@ -3,6 +3,7 @@ package UI;
 import client.People;
 import client.User;
 import dataset.UserData;
+import org.jdatepicker.impl.JDatePickerImpl;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -45,6 +46,8 @@ public class UpdateProfileGUI extends JFrame{
         telTF.setText(userData[6]);
         emailTF.setText(userData[7]);
         addressTA.append(userData[8]);
+        passwordTF.setText(userData[10]);
+        conPasswordTF.setText(userData[10]);
 
 
         genderCB.addItem("Male");
@@ -58,7 +61,8 @@ public class UpdateProfileGUI extends JFrame{
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                People.peoplePage(userData);
+                People people = new People(userData);
+                people.peoplePage();
 
                 dispose();
             }
@@ -153,12 +157,9 @@ public class UpdateProfileGUI extends JFrame{
                         && checkEmail == "" && checkAge == "" && checkPassword == "")
                     {
                         UserData user = new UserData(name, birthday, gender, address, email, icNo, passport, state, password, age, telNo, isAdmin);
-                        user.updateUser();
-
-                        JOptionPane.showMessageDialog(new JFrame(), "User have been updated",
-                                "Register", JOptionPane.INFORMATION_MESSAGE);
-
-                        User.loginPage();
+                        String[] update = user.updateUser();
+                        People people = new People(update);
+                        people.peoplePage();
 
                         dispose();
                     }
