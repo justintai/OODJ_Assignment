@@ -16,6 +16,7 @@ public class IndexGUI extends JFrame{
     private JButton editProfileButton;
     private JLabel nameLabel;
     private JLabel useridLabel;
+    private JButton logoutButton;
 
     public IndexGUI(String title, String[] userData) {
         this.setTitle(title);
@@ -39,13 +40,21 @@ public class IndexGUI extends JFrame{
         joinVaccinationButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                
+                People.registerProgrammePage();
+                dispose();
             }
         });
         editProfileButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 People.UpdateProfilePage();
+                dispose();
+            }
+        });
+        logoutButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                User.logout();
                 dispose();
             }
         });

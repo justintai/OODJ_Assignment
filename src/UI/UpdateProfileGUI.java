@@ -38,8 +38,16 @@ public class UpdateProfileGUI extends JFrame{
         passportTF.setEditable(false);
         birthdateTF.setEditable(false);
 
-        icTF.setText(userData[0]);
-        passportTF.setText(userData[1]);
+        if(icTF.equals("null"))
+        {
+            icTF.setText("");
+            passportTF.setText(userData[1]);
+        }
+        else if(passportTF.equals("null"))
+        {
+            passportTF.setText("");
+            icTF.setText(userData[0]);
+        }
         nameTF.setText(userData[2]);
         birthdateTF.setText(userData[3]);
         ageTF.setText(userData[5]);

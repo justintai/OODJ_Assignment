@@ -1,7 +1,7 @@
 package client;
 
 import UI.IndexGUI;
-import UI.UpdateProfileGUI;
+import UI.RegisterAppointmentGUI;
 
 import javax.swing.*;
 
@@ -20,5 +20,13 @@ public class People extends User {
         JFrame indexPage = new IndexGUI(title, peopleData);
         indexPage.setLocationRelativeTo(null);
         indexPage.setVisible(true);
+    }
+
+    public static void registerProgrammePage()
+    {
+        RegisterAppointmentGUI registerProgramme = new RegisterAppointmentGUI(title,peopleData);
+        registerProgramme.setLocationRelativeTo(null);
+        registerProgramme.setVisible(true);
+
     }
 }

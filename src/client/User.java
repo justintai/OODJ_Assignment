@@ -3,6 +3,7 @@ package client;
 import UI.LoginGUI;
 import UI.RegisterGUI;
 import UI.UpdateProfileGUI;
+import dataset.Appointment;
 
 import javax.swing.*;
 
@@ -10,6 +11,7 @@ public class User {
 
     private static String title = "COVID-19 Vaccination System";
     private static String[] userData;
+
 
     public User() {}
 
@@ -20,6 +22,7 @@ public class User {
     public static void main(String[] args) {
         loginPage();
     }
+
 
     public String[] getUserData() {
         return userData;
