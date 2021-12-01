@@ -45,7 +45,7 @@ public class PersonnelGUI extends JFrame {
         manageVaccineButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Personnel.manageVaccine();
+                Personnel.manageVaccinePage();
                 dispose();
             }
         });

@@ -1,9 +1,11 @@
 package personnel;
 
+import UI.AddVaccineGUI;
 import UI.ManagePeopleGUI;
-import UI.ManageVaccine;
+import UI.ManageVaccineGUI;
 import UI.PersonnelGUI;
 import client.User;
+import dataset.VaccineData;
 
 import javax.swing.*;
 
@@ -29,9 +31,20 @@ public class Personnel extends User {
         managePeoplePage.setVisible(true);
     }
 
-    public static void manageVaccine() {
-        JFrame manageVaccinePage = new ManageVaccine(title);
+    public static void manageVaccinePage() {
+        JFrame manageVaccinePage = new ManageVaccineGUI(title);
         manageVaccinePage.setLocationRelativeTo(null);
         manageVaccinePage.setVisible(true);
+    }
+
+    public static void addVaccinePage(int isEdit) {
+        JFrame addVaccinePage = new AddVaccineGUI(title, isEdit);
+        addVaccinePage.setLocationRelativeTo(null);
+        addVaccinePage.setVisible(true);
+    }
+
+    public static void addVaccine(String code, String name, String manufacture, int stock) {
+        VaccineData vaccine = new VaccineData(code, name, manufacture, stock);
+        vaccine.writeAll();
     }
 }

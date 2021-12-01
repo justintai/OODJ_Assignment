@@ -6,13 +6,13 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ManageVaccine extends JFrame{
+public class ManageVaccineGUI extends JFrame{
     private JPanel vaccinePanel;
     private JButton backButton;
     private JButton addButton;
     private JTable vaccineTable;
 
-    public ManageVaccine(String title) {
+    public ManageVaccineGUI(String title) {
         this.setTitle(title);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(vaccinePanel);
@@ -29,7 +29,8 @@ public class ManageVaccine extends JFrame{
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                Personnel.addVaccinePage(0);
+                dispose();
             }
         });
     }
