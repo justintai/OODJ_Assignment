@@ -13,10 +13,8 @@ public class AddVaccineGUI extends JFrame {
     private JButton deleteButton;
     private JTextField vacCodeTF;
     private JTextField vacNameTF;
-    private JTextField textField3;
-    private JTextField textField4;
-    private JLabel manufactureTF;
-    private JLabel stockTF;
+    private JTextField manufactureTF;
+    private JTextField stockTF;
 
     public AddVaccineGUI(String title, int isEdit) {
         this.setTitle(title);
@@ -26,7 +24,7 @@ public class AddVaccineGUI extends JFrame {
 
         stockTF.setText("0");
 
-        Boolean deleteVisible = (isEdit == 1) ? false : true;
+        Boolean deleteVisible = (isEdit == 0) ? false : true;
         deleteButton.setVisible(deleteVisible);
 
         backButton.addActionListener(new ActionListener() {
