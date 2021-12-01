@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.Date;
+import java.util.Stack;
 
 public class RegisterAppointmentGUI extends JFrame{
     private JTextField nameTF;
@@ -23,7 +24,7 @@ public class RegisterAppointmentGUI extends JFrame{
     private JComboBox stateCB;
     private JTextField telTF;
 
-    public RegisterAppointmentGUI(String title, String [] userData)
+    public RegisterAppointmentGUI(String title, String [] userData, Stack<String[]> apptData)
     {
         this.setTitle(title);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -86,6 +87,10 @@ public class RegisterAppointmentGUI extends JFrame{
                     int isDone1 = 0, isDone2 = 0, isRegister = 0, isConfirm = 0;
                     boolean checkaddress = true, checkTel = true;
 
+//                    if(apptData.get(i)[13] == 1)
+//                    {
+//
+//                    }
                     name = nameTF.getText();
                     state = (String) stateCB.getSelectedItem();
                     if (!icTF.getText().isEmpty()) {

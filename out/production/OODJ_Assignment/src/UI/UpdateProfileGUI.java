@@ -38,16 +38,13 @@ public class UpdateProfileGUI extends JFrame{
         passportTF.setEditable(false);
         birthdateTF.setEditable(false);
 
-        if(icTF.equals("null"))
-        {
-            icTF.setText("");
-            passportTF.setText(userData[1]);
-        }
-        else if(passportTF.equals("null"))
-        {
-            passportTF.setText("");
+        if(!userData[0].equals("null")) {
             icTF.setText(userData[0]);
         }
+        if(!userData[1].equals("null")) {
+            passportTF.setText(userData[1]);
+        }
+
         nameTF.setText(userData[2]);
         birthdateTF.setText(userData[3]);
         ageTF.setText(userData[5]);
@@ -56,7 +53,6 @@ public class UpdateProfileGUI extends JFrame{
         addressTA.append(userData[8]);
         passwordTF.setText(userData[10]);
         conPasswordTF.setText(userData[10]);
-
 
         genderCB.addItem("Male");
         genderCB.addItem("Female");
@@ -107,8 +103,15 @@ public class UpdateProfileGUI extends JFrame{
                     }
 
                     birthday = birthdateTF.getText();
-                    icNo = icTF.getText();
-                    passport = passportTF.getText();
+                    if(!icTF.getText().isEmpty()) {
+                        icNo = icTF.getText();
+                        passport = "null";
+                    }
+
+                    if(!passportTF.getText().isEmpty()) {
+                        passport = passportTF.getText();
+                        icNo = "null";
+                    }
 
                     gender = (String) genderCB.getSelectedItem();
 

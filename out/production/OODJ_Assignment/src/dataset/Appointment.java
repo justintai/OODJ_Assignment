@@ -3,14 +3,14 @@ package dataset;
 import Global.Global;
 import client.User;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import javax.swing.*;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Stack;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static java.lang.System.out;
 
@@ -19,6 +19,7 @@ public class Appointment {
     private int isDone1, isDone2, isRegister, isConfirm;
     private String passportNo, address, state, ICNo, telNo, name;
     private Date vac1, vac2;
+    private Stack<String[]> apptData = new Stack<>();
 
     public Appointment()
     {
@@ -63,9 +64,28 @@ public class Appointment {
 
         return data;
     }
+
     public void readAllAppointment()
     {
+        String usrData[], line;
+        try(BufferedReader in = new BufferedReader(new FileReader(Global.registerAppointmentFile));) {
+            while((line = in.readLine()) !=null) {
+                usrData = line.split("%");
+                apptData.push(usrData);
+            }
+        }
+        catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(new JFrame(), "File not exist!",
+                    "User Data", JOptionPane.ERROR_MESSAGE);
+        }
+        catch (IOException ex) {
+            Logger.getLogger(UserData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
+    public Stack<String[]> getAppointmentData()
+    {
+        return apptData;
     }
 
     public void writeAllAppointment()

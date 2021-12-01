@@ -137,6 +137,7 @@ public class UserData {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            System.out.println(wrt.get(0));
             for(int i = 0; i < userData.size(); i++)
             {
                 if(userData.get(i)[0].equals(icNo) || userData.get(i)[1].equals(passport))
@@ -152,7 +153,11 @@ public class UserData {
                 {
                     out.write(userData.get(i)[j] + "%");
                 }
-                out.println();
+
+                if(i<userData.size()-1)
+                {
+                    out.println();
+                }
             }
             JOptionPane.showMessageDialog(new JFrame(), "User have been updated",
                     "Register", JOptionPane.INFORMATION_MESSAGE);

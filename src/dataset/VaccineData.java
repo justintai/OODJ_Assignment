@@ -83,5 +83,32 @@ public class VaccineData {
     }
 
     public void updateVaccineData(Stack<String[]> newData) {
+        try(PrintWriter out = new PrintWriter(new FileWriter(Global.vaccineFile,true));) {
+            try (PrintWriter clean = new PrintWriter(new FileWriter(Global.vaccineFile, false));) {
+                clean.flush();
+                clean.close();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            for(int i=0; i<newData.size(); i++) {
+                for(int j = 0; j < newData.get(i).length; j++)
+                {
+                    out.write(newData.get(i)[j] + "%");
+                }
+
+                if(i<newData.size()-1){
+                    out.println();
+                }
+            }
+        }
+        catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(new JFrame(), "File not exist!",
+                    "Vaccine Data", JOptionPane.ERROR_MESSAGE);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
