@@ -99,7 +99,6 @@ public class UpdateProfileGUI extends JFrame{
                     }
 
                     birthday = birthdateTF.getText();
-                    System.out.println(birthday);
                     icNo = icTF.getText();
                     passport = passportTF.getText();
 

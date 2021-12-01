@@ -29,7 +29,6 @@ public class User {
         return title;
     }
 
-
     public static void logout() {
         System.gc();
         loginPage();
