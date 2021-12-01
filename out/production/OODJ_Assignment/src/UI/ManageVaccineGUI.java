@@ -21,6 +21,9 @@ public class ManageVaccineGUI extends JFrame{
     private JButton addButton;
     private JTable vaccineTable;
     private JLabel dataTotal;
+    private JTextField searchTF;
+    private String search;
+    private Stack<String[]> allData = new Stack<>();
 
     public ManageVaccineGUI(String title) {
         this.setTitle(title);
@@ -33,57 +36,19 @@ public class ManageVaccineGUI extends JFrame{
         File file = new File(Global.vaccineFile);
         if(file.exists()){
             VaccineData vaccineData = new VaccineData();
-            Stack<String[]> allData = vaccineData.getVaccineData();
+            allData = vaccineData.getVaccineData();
             totalData = allData.size();
-            String[] colName = {"Vaccine Code", "Vaccine Name", "Manufacture", "Stock"};
 
-            TableModel dataModel = new TableModel() {
-                @Override
-                public int getRowCount() {
-                    return allData.size();
-                }
+            showTable();
 
+            searchTF.addActionListener(new ActionListener() {
                 @Override
-                public int getColumnCount() {
-                    return colName.length;
-                }
+                public void actionPerformed(ActionEvent e) {
+                    search = searchTF.getText();
 
-                @Override
-                public String getColumnName(int columnIndex) {
-                    return colName[columnIndex].toString();
-                }
-
-                @Override
-                public Class<?> getColumnClass(int columnIndex) {
-                    return getValueAt(0, columnIndex).getClass();
-                }
-
-                @Override
-                public boolean isCellEditable(int rowIndex, int columnIndex) {
-                    return false;
-                }
-
-                @Override
-                public Object getValueAt(int rowIndex, int columnIndex) {
-                    return allData.get(rowIndex)[columnIndex];
-                }
-
-                @Override
-                public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-                    allData.get(rowIndex)[columnIndex] = (String) aValue;
-                }
-
-                @Override
-                public void addTableModelListener(TableModelListener l) {
 
                 }
-
-                @Override
-                public void removeTableModelListener(TableModelListener l) {
-
-                }
-            };
-            vaccineTable.setModel(dataModel);
+            });
         }
         else {
             totalData = 0;
@@ -134,5 +99,57 @@ public class ManageVaccineGUI extends JFrame{
                 dispose();
             }
         });
+    }
+
+    private void showTable() {
+        String[] colName = {"Vaccine Code", "Vaccine Name", "Manufacture", "Stock"};
+
+        TableModel dataModel = new TableModel() {
+            @Override
+            public int getRowCount() {
+                return allData.size();
+            }
+
+            @Override
+            public int getColumnCount() {
+                return colName.length;
+            }
+
+            @Override
+            public String getColumnName(int columnIndex) {
+                return colName[columnIndex].toString();
+            }
+
+            @Override
+            public Class<?> getColumnClass(int columnIndex) {
+                return getValueAt(0, columnIndex).getClass();
+            }
+
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return false;
+            }
+
+            @Override
+            public Object getValueAt(int rowIndex, int columnIndex) {
+                return allData.get(rowIndex)[columnIndex];
+            }
+
+            @Override
+            public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+                allData.get(rowIndex)[columnIndex] = (String) aValue;
+            }
+
+            @Override
+            public void addTableModelListener(TableModelListener l) {
+
+            }
+
+            @Override
+            public void removeTableModelListener(TableModelListener l) {
+
+            }
+        };
+        vaccineTable.setModel(dataModel);
     }
 }
