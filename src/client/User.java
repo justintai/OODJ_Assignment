@@ -1,16 +1,19 @@
 package client;
 
 import UI.LoginGUI;
+import UI.RegisterAppointmentGUI;
 import UI.RegisterGUI;
 import UI.UpdateProfileGUI;
 import dataset.Appointment;
 
 import javax.swing.*;
+import java.util.Stack;
 
 public class User {
 
     private static String title = "COVID-19 Vaccination System";
     private static String[] userData;
+    private static Stack<String[]> apptData;
 
 
     public User() {}
@@ -23,6 +26,15 @@ public class User {
         loginPage();
     }
 
+    public static void registerProgrammePage()
+    {
+        Appointment appointment = new Appointment();
+        apptData = appointment.getAppointmentData();
+        RegisterAppointmentGUI registerProgramme = new RegisterAppointmentGUI(title,userData,apptData);
+        registerProgramme.setLocationRelativeTo(null);
+        registerProgramme.setVisible(true);
+
+    }
 
     public String[] getUserData() {
         return userData;

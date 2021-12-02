@@ -45,8 +45,7 @@ public class ManageVaccineGUI extends JFrame{
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     search = searchTF.getText();
-
-
+                    searchTF.setText("");
                 }
             });
         }

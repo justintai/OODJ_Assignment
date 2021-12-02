@@ -11,7 +11,6 @@ public class People extends User {
 
     private static String title;
     private static String[] peopleData;
-    private static Stack<String[]> apptData;
 
 
     public People(String[] peopleData) {
@@ -26,13 +25,5 @@ public class People extends User {
         indexPage.setVisible(true);
     }
 
-    public static void registerProgrammePage()
-    {
-        Appointment appointment = new Appointment();
-        apptData = appointment.getAppointmentData();
-        RegisterAppointmentGUI registerProgramme = new RegisterAppointmentGUI(title,peopleData,apptData);
-        registerProgramme.setLocationRelativeTo(null);
-        registerProgramme.setVisible(true);
 
-    }
 }

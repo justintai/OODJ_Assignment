@@ -31,6 +31,7 @@ public class RegisterAppointmentGUI extends JFrame{
         this.setContentPane(registerPanel);
         this.setSize(700, 450);
 
+        //read file check existence
         nameTF.setEditable(false);
         icTF.setEditable(false);
         passportTF.setEditable(false);
