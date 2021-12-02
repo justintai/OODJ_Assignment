@@ -40,7 +40,7 @@ public class ManageVaccineGUI extends JFrame{
         if(file.exists()){
             VaccineData vaccineData = new VaccineData();
             allData = vaccineData.getVaccineData();
-            sortData = vaccineData.getVaccineData();
+            sortData = allData;
             totalData = allData.size();
 
             showTable();
@@ -48,7 +48,6 @@ public class ManageVaccineGUI extends JFrame{
             searchTF.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-
                     searchWord = searchTF.getText();
                     searchTF.setText("");
 
@@ -57,7 +56,6 @@ public class ManageVaccineGUI extends JFrame{
                     System.out.println(allData.size());
                     if(index != null) {
                         sortData.clear();
-                        allData = vaccineData.getVaccineData();
                         System.out.println(allData.size());
                         for(int i=0; i<index.size(); i++) {
                             System.out.println(allData.size());
@@ -66,8 +64,8 @@ public class ManageVaccineGUI extends JFrame{
                         dataTotal.setText("Total data: " + index.size());
                     }
                     else {
-                        sortData = vaccineData.getVaccineData();
-                        dataTotal.setText("Total data: " + sortData.size());
+                        sortData = allData;
+                        dataTotal.setText("Total data: " + allData.size());
                     }
 
                     System.out.println(sortData.size());
