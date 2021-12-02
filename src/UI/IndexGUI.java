@@ -42,17 +42,16 @@ public class IndexGUI extends JFrame{
         joinVaccinationButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                Appointment appointment = new Appointment();
-                int isConfirm = appointment.getConfirmation(userData);
-                System.out.println(isConfirm);
-                if(isConfirm == 0) {
+//                Appointment appointment = new Appointment();
+//                int isConfirm = appointment.getConfirmation(userData);
+//                if(isConfirm == 0) {}
+//                else
+//                {
+//                    JOptionPane.showConfirmDialog(null,"You have succesfully join the vaccination programme, please proceed to vaccination appointment", "Vaccination Programme Approve!", JOptionPane.DEFAULT_OPTION);
+//                }
+
                     People.registerProgrammePage();
                     dispose();
-                }
-                else
-                {
-                    JOptionPane.showConfirmDialog(null,"You have succesfully join the vaccination programme, please proceed to vaccination appointment", "Vaccination Programme Approve!", JOptionPane.DEFAULT_OPTION);
-                }
             }
         });
         editProfileButton.addActionListener(new ActionListener() {

@@ -4,10 +4,9 @@ import client.People;
 import dataset.Appointment;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import javax.swing.border.Border;
+import java.awt.*;
+import java.awt.event.*;
 import java.util.Stack;
 
 public class RegisterAppointmentGUI extends JFrame{
@@ -22,6 +21,7 @@ public class RegisterAppointmentGUI extends JFrame{
     private JPanel registerPanel;
     private JComboBox stateCB;
     private JTextField telTF;
+    private JButton backButton1;
 
     public RegisterAppointmentGUI(String title, String [] userData, Stack<String[]> apptData)
     {
@@ -29,7 +29,7 @@ public class RegisterAppointmentGUI extends JFrame{
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(registerPanel);
         this.setSize(700, 450);
-
+        backButton1.setVisible(false);
         //read file check existence
         for(int i = 0; i < apptData.size(); i++)
         {
@@ -38,7 +38,6 @@ public class RegisterAppointmentGUI extends JFrame{
                 applyButton.setText("Update");
             }
         }
-
 
         nameTF.setEditable(false);
         icTF.setEditable(false);
@@ -158,6 +157,15 @@ public class RegisterAppointmentGUI extends JFrame{
                     JOptionPane.showMessageDialog(new JFrame(), "Please enter integer number!",
                             "Appointment", JOptionPane.WARNING_MESSAGE);
                 }
+            }
+        });
+
+        backButton1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                People people = new People(userData);
+                people.peoplePage();
+                dispose();
             }
         });
     }
