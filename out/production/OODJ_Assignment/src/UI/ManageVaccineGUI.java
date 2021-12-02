@@ -1,6 +1,7 @@
 package UI;
 
 import Global.Global;
+import Search.Search;
 import dataset.VaccineData;
 import personnel.Personnel;
 
@@ -13,6 +14,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
+import java.util.Arrays;
 import java.util.Stack;
 
 public class ManageVaccineGUI extends JFrame{
@@ -22,8 +24,9 @@ public class ManageVaccineGUI extends JFrame{
     private JTable vaccineTable;
     private JLabel dataTotal;
     private JTextField searchTF;
-    private String search;
+    private String searchWord;
     private Stack<String[]> allData = new Stack<>();
+    private Stack<String[]> sortData = new Stack<>();
 
     public ManageVaccineGUI(String title) {
         this.setTitle(title);
@@ -37,6 +40,7 @@ public class ManageVaccineGUI extends JFrame{
         if(file.exists()){
             VaccineData vaccineData = new VaccineData();
             allData = vaccineData.getVaccineData();
+            sortData = vaccineData.getVaccineData();
             totalData = allData.size();
 
             showTable();
@@ -44,8 +48,29 @@ public class ManageVaccineGUI extends JFrame{
             searchTF.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    search = searchTF.getText();
+
+                    searchWord = searchTF.getText();
                     searchTF.setText("");
+
+                    Search search = new Search();
+                    Stack<Integer> index = search.searchVaccine(searchWord);
+                    System.out.println(allData.size());
+                    if(index != null) {
+                        sortData.clear();
+                        allData = vaccineData.getVaccineData();
+                        System.out.println(allData.size());
+                        for(int i=0; i<index.size(); i++) {
+                            System.out.println(allData.size());
+                            sortData.push(allData.get(index.get(i)));
+                        }
+                        dataTotal.setText("Total data: " + index.size());
+                    }
+                    else {
+                        sortData = vaccineData.getVaccineData();
+                        dataTotal.setText("Total data: " + sortData.size());
+                    }
+
+                    System.out.println(sortData.size());
                 }
             });
         }
@@ -106,7 +131,7 @@ public class ManageVaccineGUI extends JFrame{
         TableModel dataModel = new TableModel() {
             @Override
             public int getRowCount() {
-                return allData.size();
+                return sortData.size();
             }
 
             @Override
@@ -131,12 +156,12 @@ public class ManageVaccineGUI extends JFrame{
 
             @Override
             public Object getValueAt(int rowIndex, int columnIndex) {
-                return allData.get(rowIndex)[columnIndex];
+                return sortData.get(rowIndex)[columnIndex];
             }
 
             @Override
             public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-                allData.get(rowIndex)[columnIndex] = (String) aValue;
+                sortData.get(rowIndex)[columnIndex] = (String) aValue;
             }
 
             @Override
