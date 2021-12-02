@@ -1,12 +1,11 @@
-package UI;
+package UI.PersonnelFunctions;
 
 import Global.Global;
 import Search.Search;
-import dataset.VaccineData;
+import dataset.VaccinationCentreData;
 import personnel.Personnel;
 
 import javax.swing.*;
-import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 import java.awt.event.ActionEvent;
@@ -14,34 +13,34 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
-import java.util.Arrays;
 import java.util.Stack;
 
-public class ManageVaccineGUI extends JFrame{
-    private JPanel vaccinePanel;
-    private JButton backButton;
-    private JButton addButton;
-    private JTable vaccineTable;
+public class ManageCentreGUI extends JFrame{
+    private JPanel manageCentrePanel;
     private JLabel dataTotal;
+    private JButton backButton;
+    private JTable dataTable;
     private JTextField searchTF;
+    private JButton addButton;
     private String searchWord;
     private Stack<String[]> allData = new Stack<>();
     private Stack<String[]> sortData = new Stack<>();
     private Stack<Integer> index = null;
+    String[] colName = {"Centre Code", "Name", "State", "Vaccine Code", "Stock"};
 
-    public ManageVaccineGUI(String title) {
+    public ManageCentreGUI(String title) {
         this.setTitle(title);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setContentPane(vaccinePanel);
+        this.setContentPane(manageCentrePanel);
         this.setSize(500, 500);
 
         int totalData = 0;
         sortData = null;
 
-        File file = new File(Global.vaccineFile);
+        File file = new File(Global.centreFile);
         if(file.exists()){
-            VaccineData vaccineData = new VaccineData();
-            allData = vaccineData.getVaccineData();
+            VaccinationCentreData centreData = new VaccinationCentreData();
+            allData = centreData.getCentreData();
             totalData = allData.size();
 
             showTable(allData);
@@ -54,8 +53,8 @@ public class ManageVaccineGUI extends JFrame{
 
                     Search search = new Search();
                     index = search.searchVaccine(searchWord);
-                    VaccineData vaccineData = new VaccineData();
-                    Stack<String[]> oldData = vaccineData.getVaccineData();
+                    VaccinationCentreData centreData = new VaccinationCentreData();
+                    Stack<String[]> oldData = centreData.getCentreData();
                     Stack<String[]> newData = new Stack<>();
 
                     if(index != null) {
@@ -68,7 +67,7 @@ public class ManageVaccineGUI extends JFrame{
                     else {
                         newData = oldData;
                         sortData = null;
-                        dataTotal.setText("Total data: " + vaccineData.getVaccineData().size());
+                        dataTotal.setText("Total data: " + centreData.getCentreData().size());
                     }
 
                     showTable(newData);
@@ -81,19 +80,19 @@ public class ManageVaccineGUI extends JFrame{
 
         dataTotal.setText("Total data: " + totalData);
 
-        vaccineTable.addMouseListener(new MouseListener() {
+        dataTable.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 int line=-1;
                 if(sortData != null) {
-                    line = index.get(vaccineTable.getSelectedRow());
+                    line = index.get(dataTable.getSelectedRow());
                     sortData = null;
                 }
                 else {
-                    line = vaccineTable.getSelectedRow();
+                    line = dataTable.getSelectedRow();
                 }
 
-                Personnel.addVaccinePage(line, 1);
+                Personnel.addCentrePage(line, 1);
                 dispose();
             }
 
@@ -129,15 +128,13 @@ public class ManageVaccineGUI extends JFrame{
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Personnel.addVaccinePage(-1, 0);
+                Personnel.addCentrePage(-1, 0);
                 dispose();
             }
         });
     }
 
     private void showTable(Stack<String[]> tableData) {
-        String[] colName = {"Vaccine Code", "Vaccine Name", "Manufacture", "Stock"};
-
         TableModel dataModel = new TableModel() {
             @Override
             public int getRowCount() {
@@ -166,12 +163,29 @@ public class ManageVaccineGUI extends JFrame{
 
             @Override
             public Object getValueAt(int rowIndex, int columnIndex) {
-                return tableData.get(rowIndex)[columnIndex];
+
+                int realCol=0;
+                if(columnIndex >= 3) {
+                    realCol = columnIndex + 1;
+                }
+                else {
+                    realCol = columnIndex;
+                }
+                return tableData.get(rowIndex)[realCol];
             }
 
             @Override
             public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-                tableData.get(rowIndex)[columnIndex] = (String) aValue;
+
+                int realCol=0;
+                if(columnIndex >= 3) {
+                    realCol = columnIndex + 1;
+                }
+                else {
+                    realCol = columnIndex;
+                }
+
+                tableData.get(rowIndex)[realCol] = (String) aValue;
             }
 
             @Override
@@ -184,6 +198,6 @@ public class ManageVaccineGUI extends JFrame{
 
             }
         };
-        vaccineTable.setModel(dataModel);
+        dataTable.setModel(dataModel);
     }
 }

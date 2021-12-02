@@ -37,6 +37,9 @@ public class AddVaccineGUI extends JFrame {
         Boolean deleteVisible = (isEdit == 0) ? false : true;
         deleteButton.setVisible(deleteVisible);
 
+        Boolean editable = (isEdit == 0) ? true : false;
+        vacCodeTF.setEditable(editable);
+
         String titleLabel = (isEdit == 0) ? "Add Vaccine" : "Edit Vaccine";
         vaccineTitle.setText(titleLabel);
 
