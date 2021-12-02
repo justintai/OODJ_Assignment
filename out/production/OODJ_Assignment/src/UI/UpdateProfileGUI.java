@@ -1,14 +1,11 @@
 package UI;
 
-import client.People;
-import client.User;
-import dataset.UserData;
-import org.jdatepicker.impl.JDatePickerImpl;
+import client.People.People;
+import client.Dataset.UserData;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Stack;
 
 public class UpdateProfileGUI extends JFrame{
     private JTextField nameTF;

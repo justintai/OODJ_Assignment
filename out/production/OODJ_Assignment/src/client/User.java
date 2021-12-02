@@ -4,7 +4,7 @@ import UI.LoginGUI;
 import UI.RegisterAppointmentGUI;
 import UI.RegisterGUI;
 import UI.UpdateProfileGUI;
-import dataset.Appointment;
+import client.Dataset.Appointment;
 
 import javax.swing.*;
 import java.util.Stack;

@@ -1,14 +1,13 @@
 package UI;
 
-import client.People;
+import client.People.People;
 import client.User;
-import dataset.UserData;
-import personnel.Personnel;
+import client.Dataset.UserData;
+import client.Personnel.Personnel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Stack;
 
 public class LoginGUI extends JFrame {
     private JPanel mainPanel;

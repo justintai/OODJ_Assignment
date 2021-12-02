@@ -1,23 +1,19 @@
 package UI;
 
 import client.User;
-import dataset.UserData;
+import client.Dataset.UserData;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
-import sun.nio.ch.Util;
 
 import javax.swing.*;
 import java.awt.event.*;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
 import java.util.Stack;
-
-import static java.lang.System.exit;
 
 public class RegisterGUI extends JFrame {
     private JPanel registerPanel;

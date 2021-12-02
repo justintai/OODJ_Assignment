@@ -1,11 +1,11 @@
 package personnel;
 
-import UI.AddVaccineGUI;
-import UI.ManagePeopleGUI;
-import UI.ManageVaccineGUI;
-import UI.PersonnelFunctions.AddCentreGUI;
-import UI.PersonnelFunctions.ManageCentreGUI;
-import UI.PersonnelGUI;
+import UI.PersonnelGUIs.AddVaccineGUI;
+import UI.PersonnelGUIs.ManagePeopleGUI;
+import UI.PersonnelGUIs.ManageVaccineGUI;
+import UI.PersonnelGUIs.AddCentreGUI;
+import UI.PersonnelGUIs.ManageCentreGUI;
+import UI.PersonnelGUIs.PersonnelGUI;
 import client.User;
 import dataset.VaccinationCentreData;
 import dataset.VaccineData;

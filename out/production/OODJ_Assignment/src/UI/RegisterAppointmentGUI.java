@@ -1,11 +1,9 @@
 package UI;
 
-import client.People;
-import dataset.Appointment;
+import client.People.People;
+import client.Dataset.Appointment;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import java.awt.*;
 import java.awt.event.*;
 import java.util.Stack;
 
@@ -30,7 +28,6 @@ public class RegisterAppointmentGUI extends JFrame{
         this.setContentPane(registerPanel);
         this.setSize(700, 450);
         backButton1.setVisible(false);
-        int exist = 0;
         //read file check existence
         for(int i = 0; i < apptData.size(); i++)
         {
@@ -38,18 +35,6 @@ public class RegisterAppointmentGUI extends JFrame{
             {
                 applyButton.setText("Update");
             }
-
-            if(apptData.get(i)[8] != null && apptData.get(i)[9] != null)
-            {
-                exist = 1;
-            }
-        }
-
-        if(exist == 0)
-        {
-            applyButton.setVisible(false);
-            backButton.setVisible(false);
-            backButton1.setVisible(true);
         }
 
         nameTF.setEditable(false);
