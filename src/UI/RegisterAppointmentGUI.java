@@ -8,7 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.Date;
 import java.util.Stack;
 
 public class RegisterAppointmentGUI extends JFrame{
@@ -32,6 +31,15 @@ public class RegisterAppointmentGUI extends JFrame{
         this.setSize(700, 450);
 
         //read file check existence
+        for(int i = 0; i < apptData.size(); i++)
+        {
+            if(userData[0].equals(apptData.get(i)[0]) || userData[1].equals(apptData.get(i)[1]))
+            {
+                applyButton.setText("Update");
+            }
+        }
+
+
         nameTF.setEditable(false);
         icTF.setEditable(false);
         passportTF.setEditable(false);
@@ -48,7 +56,7 @@ public class RegisterAppointmentGUI extends JFrame{
         }
         nameTF.setText(userData[2]);
         telTF.setText(userData[6]);
-        addressTA.setText(userData[8]);
+
 
         stateCB.addItem("Johor");
         stateCB.addItem("Melaka");
@@ -60,11 +68,16 @@ public class RegisterAppointmentGUI extends JFrame{
             public void itemStateChanged(ItemEvent itemEvent) {
                 if(confirmaddCB.isSelected())
                 {
-                    addressTA.setEditable(false);
+                    addressTA.setEnabled(false);
+                    addressTA.setText(userData[8]);
+                    stateCB.setEnabled(false);
+                    stateCB.setSelectedItem(userData[9]);
                 }
                 else
                 {
-                    addressTA.setEditable(true);
+                    addressTA.setEnabled(true);
+                    addressTA.setText("");
+                    stateCB.setEnabled(true);
                 }
             }
         });
@@ -82,16 +95,12 @@ public class RegisterAppointmentGUI extends JFrame{
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
-                    String address = null, name = null, icNo = null, passport = null, state = null, telno = null;
-                    Date vac1 = null, vac2 = null;
-                    char vacccineCode = 0, centreCode = 0;
-                    int isDone1 = 0, isDone2 = 0, isRegister = 0, isConfirm = 0;
+                    String address = "null", name = "null", icNo = "null",
+                            passport = "null", state = "null", vac1 = "null",
+                            vac2 = "null", vaccineCode = "null", centreCode = "null";
+                    int isDone1 = 0, isDone2 = 0,  isConfirm = 0, telno = 0, complete = 0;
                     boolean checkaddress = true, checkTel = true;
 
-//                    if(apptData.get(i)[13] == 1)
-//                    {
-//
-//                    }
                     name = nameTF.getText();
                     state = (String) stateCB.getSelectedItem();
                     if (!icTF.getText().isEmpty()) {
@@ -101,7 +110,7 @@ public class RegisterAppointmentGUI extends JFrame{
                     }
 
                     if (!telTF.getText().isEmpty()) {
-                        telno = telTF.getText();
+                        telno = Integer.parseInt(telTF.getText());
                     } else {
                         checkTel = false;
                     }
@@ -112,11 +121,33 @@ public class RegisterAppointmentGUI extends JFrame{
                         checkaddress = false;
                     }
 
-                    if (checkaddress == true && checkTel == true && confirmaddCB.isSelected()) {
-                        isRegister = 1;
-                        JOptionPane.showConfirmDialog(null,"Do you want to proceed?", "Make your decision...", JOptionPane.YES_NO_OPTION);
-                        Appointment appointment = new Appointment(passport, address, state, icNo, telno, name, vac1, vac2, vacccineCode, centreCode, isDone1, isDone2, isRegister, isConfirm);
-                        appointment.writeAllAppointment();
+                    if (checkaddress == true && checkTel == true) {
+                        int confirm = JOptionPane.showConfirmDialog(null,"Do you want to proceed?", "Make your decision...", JOptionPane.YES_NO_OPTION);
+                        if(confirm == 0)
+                        {
+                            Appointment appointment = new Appointment(passport, address, state, icNo,
+                                                                        telno, name, vac1, vac2, vaccineCode,
+                                                                        centreCode, isDone1, isDone2,  isConfirm);
+
+                            for(int i = 0; i < apptData.size(); i++)
+                            {
+                                if(userData[0].equals(apptData.get(i)[0]) || userData[1].equals(apptData.get(i)[1]))
+                                {
+                                    complete = 1;
+                                    appointment.updateAppointment();
+                                }
+                            }
+
+                            if(complete == 0)
+                            {
+                                appointment.writeAllAppointment();
+                            }
+
+                            People people = new People(userData);
+                            people.peoplePage();
+
+                            dispose();
+                        }
 
                     } else {
                         JOptionPane.showMessageDialog(new JFrame(), "PLease fill in your address, Telno, and confirm your address!");
@@ -125,7 +156,7 @@ public class RegisterAppointmentGUI extends JFrame{
                 catch (NumberFormatException numberFormatException)
                 {
                     JOptionPane.showMessageDialog(new JFrame(), "Please enter integer number!",
-                            "Register", JOptionPane.WARNING_MESSAGE);
+                            "Appointment", JOptionPane.WARNING_MESSAGE);
                 }
             }
         });

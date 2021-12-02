@@ -143,9 +143,6 @@ public class UpdateProfileGUI extends JFrame{
                         checkAge = "Enter age.\n";
                     }
 
-                    UserData userData = new UserData();
-                    Stack<String[]> data = userData.getUserData();
-
                     state = (String)stateCB.getSelectedItem();
 
                     String pass = passwordTF.getText();

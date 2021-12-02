@@ -2,6 +2,7 @@ package UI;
 
 import client.People;
 import client.User;
+import dataset.Appointment;
 import dataset.UserData;
 
 import javax.swing.*;
@@ -19,6 +20,7 @@ public class IndexGUI extends JFrame{
     private JButton logoutButton;
 
     public IndexGUI(String title, String[] userData) {
+
         this.setTitle(title);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(indexPanel);
@@ -40,15 +42,29 @@ public class IndexGUI extends JFrame{
         joinVaccinationButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                People.registerProgrammePage();
-                dispose();
+                Appointment appointment = new Appointment();
+                int isConfirm = appointment.getConfirmation(userData);
+                System.out.println(isConfirm);
+                if(isConfirm == 0) {
+                    People.registerProgrammePage();
+                    dispose();
+                }
+                else
+                {
+                    JOptionPane.showConfirmDialog(null,"You have succesfully join the vaccination programme, please proceed to vaccination appointment", "Vaccination Programme Approve!", JOptionPane.DEFAULT_OPTION);
+                }
             }
         });
         editProfileButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                People.UpdateProfilePage();
-                dispose();
+
+
+                    People.UpdateProfilePage();
+                    dispose();
+
+
+
             }
         });
         logoutButton.addActionListener(new ActionListener() {

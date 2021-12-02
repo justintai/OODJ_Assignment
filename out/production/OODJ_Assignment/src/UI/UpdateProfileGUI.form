@@ -14,7 +14,7 @@
         </constraints>
         <properties>
           <font name="Source Code Pro Black" size="24"/>
-          <text value="Registration"/>
+          <text value="Edit Profile"/>
         </properties>
       </component>
       <component id="48373" class="javax.swing.JLabel">
