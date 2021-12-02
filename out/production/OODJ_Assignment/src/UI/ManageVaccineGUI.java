@@ -27,6 +27,7 @@ public class ManageVaccineGUI extends JFrame{
     private String searchWord;
     private Stack<String[]> allData = new Stack<>();
     private Stack<String[]> sortData = new Stack<>();
+    private Stack<Integer> index = null;
 
     public ManageVaccineGUI(String title) {
         this.setTitle(title);
@@ -35,15 +36,15 @@ public class ManageVaccineGUI extends JFrame{
         this.setSize(500, 500);
 
         int totalData = 0;
+        sortData = null;
 
         File file = new File(Global.vaccineFile);
         if(file.exists()){
             VaccineData vaccineData = new VaccineData();
             allData = vaccineData.getVaccineData();
-            sortData = allData;
             totalData = allData.size();
 
-            showTable();
+            showTable(allData);
 
             searchTF.addActionListener(new ActionListener() {
                 @Override
@@ -52,23 +53,25 @@ public class ManageVaccineGUI extends JFrame{
                     searchTF.setText("");
 
                     Search search = new Search();
-                    Stack<Integer> index = search.searchVaccine(searchWord);
-                    System.out.println(allData.size());
+                    index = search.searchVaccine(searchWord);
+                    VaccineData vaccineData = new VaccineData();
+                    Stack<String[]> oldData = vaccineData.getVaccineData();
+                    Stack<String[]> newData = new Stack<>();
+
                     if(index != null) {
-                        sortData.clear();
-                        System.out.println(allData.size());
                         for(int i=0; i<index.size(); i++) {
-                            System.out.println(allData.size());
-                            sortData.push(allData.get(index.get(i)));
+                            newData.push(oldData.get(index.get(i)));
                         }
                         dataTotal.setText("Total data: " + index.size());
+                        sortData = newData;
                     }
                     else {
-                        sortData = allData;
-                        dataTotal.setText("Total data: " + allData.size());
+                        newData = oldData;
+                        sortData = null;
+                        dataTotal.setText("Total data: " + vaccineData.getVaccineData().size());
                     }
 
-                    System.out.println(sortData.size());
+                    showTable(newData);
                 }
             });
         }
@@ -81,7 +84,16 @@ public class ManageVaccineGUI extends JFrame{
         vaccineTable.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                Personnel.addVaccinePage(vaccineTable.getSelectedRow(), 1);
+                int line=-1;
+                if(sortData != null) {
+                    line = index.get(vaccineTable.getSelectedRow());
+                    sortData = null;
+                }
+                else {
+                    line = vaccineTable.getSelectedRow();
+                }
+
+                Personnel.addVaccinePage(line, 1);
                 dispose();
             }
 
@@ -123,13 +135,13 @@ public class ManageVaccineGUI extends JFrame{
         });
     }
 
-    private void showTable() {
+    private void showTable(Stack<String[]> tableData) {
         String[] colName = {"Vaccine Code", "Vaccine Name", "Manufacture", "Stock"};
 
         TableModel dataModel = new TableModel() {
             @Override
             public int getRowCount() {
-                return sortData.size();
+                return tableData.size();
             }
 
             @Override
@@ -154,12 +166,12 @@ public class ManageVaccineGUI extends JFrame{
 
             @Override
             public Object getValueAt(int rowIndex, int columnIndex) {
-                return sortData.get(rowIndex)[columnIndex];
+                return tableData.get(rowIndex)[columnIndex];
             }
 
             @Override
             public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-                sortData.get(rowIndex)[columnIndex] = (String) aValue;
+                tableData.get(rowIndex)[columnIndex] = (String) aValue;
             }
 
             @Override

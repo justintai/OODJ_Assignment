@@ -3,8 +3,11 @@ package personnel;
 import UI.AddVaccineGUI;
 import UI.ManagePeopleGUI;
 import UI.ManageVaccineGUI;
+import UI.PersonnelFunctions.AddCentreGUI;
+import UI.PersonnelFunctions.ManageCentreGUI;
 import UI.PersonnelGUI;
 import client.User;
+import dataset.VaccinationCentreData;
 import dataset.VaccineData;
 
 import javax.swing.*;
@@ -52,5 +55,30 @@ public class Personnel extends User {
     public static void updateVaccine(Stack<String[]> data) {
         VaccineData vaccine = new VaccineData();
         vaccine.updateVaccineData(data);
+    }
+
+    public static void manageVaccinationCentre() {
+        JFrame manageCentrePage = new ManageCentreGUI(title);
+        manageCentrePage.setLocationRelativeTo(null);
+        manageCentrePage.setVisible(true);
+    }
+
+    public static void addCentrePage(int editLine, int isEdit) {
+        JFrame addCentrePage = new AddCentreGUI(title, editLine, isEdit);
+        addCentrePage.setLocationRelativeTo(null);
+        addCentrePage.setVisible(true);
+    }
+
+    public static void addCentre(String centreCode, String name, String state,
+                                 String address, String vaccineCode, int maxStock,
+                                 int stock, Stack<String[]> vacData) {
+        VaccinationCentreData vaccinationCentreData = new VaccinationCentreData(centreCode, name, state,
+                address, vaccineCode, maxStock, stock, vacData);
+        vaccinationCentreData.writeAll();
+    }
+
+    public static void updateCentre(Stack<String[]> data) {
+        VaccinationCentreData vaccinationCentreData = new VaccinationCentreData();
+        vaccinationCentreData.updateVaccinationCentreData(data);
     }
 }
