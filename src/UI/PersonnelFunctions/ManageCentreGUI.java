@@ -52,7 +52,7 @@ public class ManageCentreGUI extends JFrame{
                     searchTF.setText("");
 
                     Search search = new Search();
-                    index = search.searchVaccine(searchWord);
+                    index = search.searchCentre(searchWord);
                     VaccinationCentreData centreData = new VaccinationCentreData();
                     Stack<String[]> oldData = centreData.getCentreData();
                     Stack<String[]> newData = new Stack<>();

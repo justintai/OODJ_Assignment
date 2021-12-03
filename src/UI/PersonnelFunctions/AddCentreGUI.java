@@ -27,7 +27,7 @@ public class AddCentreGUI extends JFrame {
     private JLabel centreTitle;
     private Stack<String[]> allData;
     private Stack<String[]> vacData;
-    private int editLine;
+    private int editLine, oldVacStock = 0, newVacStock = 0;
 
     public AddCentreGUI(String title, int editLine, int isEdit) {
         this.setTitle(title);
@@ -77,6 +77,18 @@ public class AddCentreGUI extends JFrame {
                 vaccineStockTF.setText(allData.get(editLine)[5]);
                 vaccineMaxStockTF.setText(allData.get(editLine)[6]);
             }
+
+            oldVacStock = Integer.parseInt(vacData.get(vaccineCodeCB.getSelectedIndex())[3]);
+            newVacStock = oldVacStock + Integer.parseInt(vaccineStockTF.getText());
+
+            vacData.get(vaccineCodeCB.getSelectedIndex())[3] = String.valueOf(newVacStock);
+
+            vaccineCodeCB.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    vaccineStockTF.setText("0");
+                }
+            });
         }
 
         backButton.addActionListener(new ActionListener() {
@@ -218,8 +230,8 @@ public class AddCentreGUI extends JFrame {
                     address = null,
                     vaccineCode = null;
 
-            int stock = Integer.parseInt(vaccineStockTF.getText());
-            int maxStock = Integer.parseInt(vaccineMaxStockTF.getText());
+            int stock = 0,
+                    maxStock = Integer.parseInt(vaccineMaxStockTF.getText());
 
             state = (String) stateCB.getSelectedItem();
             vaccineCode = (String) vaccineCodeCB.getSelectedItem();
@@ -271,12 +283,14 @@ public class AddCentreGUI extends JFrame {
                 checkStock = "Vaccine stock cannot more that maximum stock";
             }
             else {
-
+                stock = Integer.parseInt(vaccineStockTF.getText());
+                int newStock = Integer.parseInt(vacData.get(vaccineCodeCB.getSelectedIndex())[3]) - stock;
+                vacData.get(vaccineCodeCB.getSelectedIndex())[3] = String.valueOf(newStock);
             }
 
             if(checkCode == "" && checkName == "" && checkAddress == "" && checkStock == "") {
                 String[] newDate = {centreCode, name, state, address, vaccineCode,
-                        String.valueOf(maxStock), String.valueOf(stock)};
+                        String.valueOf(stock), String.valueOf(maxStock)};
 
                 for(int i = 0; i < allData.size(); i++) {
                     if (i == editLine) {
@@ -287,6 +301,7 @@ public class AddCentreGUI extends JFrame {
                 }
 
                 Personnel.updateCentre(allData);
+                Personnel.updateVaccine(vacData);
                 JOptionPane.showMessageDialog(new JFrame(), "The centre had been updated.",
                         "Edit Centre", JOptionPane.INFORMATION_MESSAGE);
 
