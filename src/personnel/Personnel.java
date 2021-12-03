@@ -1,11 +1,6 @@
 package personnel;
 
-import UI.PersonnelFunctions.AddVaccineGUI;
-import UI.PersonnelFunctions.ManagePeopleGUI;
-import UI.PersonnelFunctions.ManageVaccineGUI;
-import UI.PersonnelFunctions.AddCentreGUI;
-import UI.PersonnelFunctions.ManageCentreGUI;
-import UI.PersonnelFunctions.PersonnelGUI;
+import UI.PersonnelFunctions.*;
 import client.User;
 import dataset.VaccinationCentreData;
 import dataset.VaccineData;
@@ -16,25 +11,28 @@ import java.util.Stack;
 public class Personnel extends User {
 
     private static String title;
-    private static String[] usrData;
+    private static String[] personnelData;
 
     public Personnel(String[] usrData) {
+        super(usrData);
         this.title = super.getTitle();
-        this.usrData = usrData;
+        this.personnelData = super.getUserData();
     }
 
     public static void personnelPage() {
-        JFrame personnelPage = new PersonnelGUI(title, usrData);
+        JFrame personnelPage = new PersonnelGUI(title, personnelData);
         personnelPage.setLocationRelativeTo(null);
         personnelPage.setVisible(true);
     }
 
+//    Manage People
     public static void managePeoplePage() {
         JFrame managePeoplePage = new ManagePeopleGUI(title);
         managePeoplePage.setLocationRelativeTo(null);
         managePeoplePage.setVisible(true);
     }
 
+//    Manage Vaccine
     public static void manageVaccinePage() {
         JFrame manageVaccinePage = new ManageVaccineGUI(title);
         manageVaccinePage.setLocationRelativeTo(null);
@@ -57,6 +55,7 @@ public class Personnel extends User {
         vaccine.updateVaccineData(data);
     }
 
+//    Manage Vaccination Centre
     public static void manageVaccinationCentre() {
         JFrame manageCentrePage = new ManageCentreGUI(title);
         manageCentrePage.setLocationRelativeTo(null);
@@ -78,6 +77,18 @@ public class Personnel extends User {
     }
 
     public static void updateCentre(Stack<String[]> data) {
+        VaccinationCentreData vaccinationCentreData = new VaccinationCentreData();
+        vaccinationCentreData.updateVaccinationCentreData(data);
+    }
+
+//    Manage Personnel
+    public static void managePersonnelPage() {
+        JFrame managePersonnelPage = new ManagePersonnelGUI(title);
+        managePersonnelPage.setLocationRelativeTo(null);
+        managePersonnelPage.setVisible(true);
+    }
+
+    public static void updatePersonnel(Stack<String[]> data) {
         VaccinationCentreData vaccinationCentreData = new VaccinationCentreData();
         vaccinationCentreData.updateVaccinationCentreData(data);
     }

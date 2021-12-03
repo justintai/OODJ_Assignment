@@ -17,6 +17,7 @@ public class PersonnelGUI extends JFrame {
     private JButton managePersonnelButton;
     private JButton managePeopleButton;
     private JButton manageAppointmentButton;
+    private JButton reportButton;
 
     public PersonnelGUI(String title, String[] usrData) {
         this.setTitle(title);
@@ -61,7 +62,8 @@ public class PersonnelGUI extends JFrame {
         managePersonnelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                Personnel.managePersonnelPage();
+                dispose();
             }
         });
 
@@ -70,6 +72,13 @@ public class PersonnelGUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 User.logout();
                 dispose();
+            }
+        });
+
+        reportButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
             }
         });
     }

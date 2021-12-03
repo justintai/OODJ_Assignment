@@ -15,7 +15,6 @@ public class User {
     private static String[] userData;
     private static Stack<String[]> apptData;
 
-
     public User() {}
 
     public User(String[] userData) {
@@ -46,8 +45,8 @@ public class User {
         frame.setVisible(true);
     }
 
-    public static void registerUser() {
-        JFrame registerPage = new RegisterGUI(title);
+    public static void registerUser(int isAdmin) {
+        JFrame registerPage = new RegisterGUI(title, isAdmin);
         registerPage.setLocationRelativeTo(null);
         registerPage.setVisible(true);
     }
@@ -56,9 +55,9 @@ public class User {
         return title;
     }
 
-    public static void UpdateProfilePage()
+    public static void UpdateProfilePage(int isAmin)
     {
-        JFrame updateProfile = new UpdateProfileGUI(title, userData);
+        JFrame updateProfile = new UpdateProfileGUI(title, userData, isAmin);
         updateProfile.setLocationRelativeTo(null);
         updateProfile.setVisible(true);
     }

@@ -59,7 +59,7 @@ public class IndexGUI extends JFrame{
             public void actionPerformed(ActionEvent actionEvent) {
 
 
-                    People.UpdateProfilePage();
+                    People.UpdateProfilePage(0);
                     dispose();
 
 
