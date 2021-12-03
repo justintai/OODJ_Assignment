@@ -197,7 +197,7 @@
             <properties>
               <font size="16" style="1"/>
               <foreground color="-14370040"/>
-              <text value="Apponitment Approve!"/>
+              <text value="Appointment Approve!"/>
             </properties>
           </component>
         </children>

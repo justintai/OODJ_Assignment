@@ -13,7 +13,6 @@ public class User {
 
     private static String title = "COVID-19 Vaccination System";
     private static String[] userData;
-    private static Stack<String[]> apptData;
 
 
     public User() {}
@@ -29,8 +28,8 @@ public class User {
     public static void registerProgrammePage()
     {
         Appointment appointment = new Appointment();
-        apptData = appointment.getAppointmentData();
-        RegisterAppointmentGUI registerProgramme = new RegisterAppointmentGUI(title,userData,apptData);
+        Stack<String[]> apptData = appointment.getAppointmentData();
+        RegisterAppointmentGUI registerProgramme = new RegisterAppointmentGUI(title,userData, apptData);
         registerProgramme.setLocationRelativeTo(null);
         registerProgramme.setVisible(true);
 

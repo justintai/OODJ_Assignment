@@ -8,6 +8,7 @@ import dataset.UserData;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Stack;
 
 public class IndexGUI extends JFrame{
     private JPanel indexPanel;
@@ -37,39 +38,50 @@ public class IndexGUI extends JFrame{
             nameLabel.setText("Name : " + userData[2]);
         }
 
-
-
-        joinVaccinationButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-//                Appointment appointment = new Appointment();
-//                int isConfirm = appointment.getConfirmation(userData);
-//                if(isConfirm == 0) {}
-//                else
-//                {
-//                }
-
-                    People.registerProgrammePage();
-                    dispose();
-            }
-        });
         editProfileButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-
-
-                    People.UpdateProfilePage();
-                    dispose();
-
-
-
+                People.UpdateProfilePage();
+                dispose();
             }
         });
+
         logoutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 User.logout();
                 dispose();
+            }
+        });
+
+        joinVaccinationButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                People.registerProgrammePage();
+                dispose();
+            }
+        });
+
+        checkVaccinationAppointmentButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                Appointment appointment = new Appointment();
+                Stack<String[]> apptData = appointment.getAppointmentData();
+                for(int i = 0; i < apptData.size(); i++)
+                {
+                    if(userData[0].equals(apptData.get(i)[0]) || userData[1].equals(apptData.get(i)[1]))
+                    {
+                        if((!apptData.get(i)[8].equals("null")) && (!apptData.get(i)[9].equals("null")))
+                        {
+                            People.manageAppointment();
+                            dispose();
+                        } else {
+                            JOptionPane.showMessageDialog(new JFrame(), "Please Register Vaccination Programme First !", "Vaccine Programme", JOptionPane.WARNING_MESSAGE);
+                        }
+                    }
+
+                }
+
             }
         });
     }

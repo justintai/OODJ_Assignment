@@ -42,17 +42,12 @@ public class RegisterAppointmentGUI extends JFrame{
         }
 
         for(int i = 0; i < apptData.size(); i++) {
-            System.out.println("t");
             if (userData[0].equals(apptData.get(i)[0]) || userData[1].equals(apptData.get(i)[1])) {
                 if (apptData.get(i)[8].equals("null") || apptData.get(i)[9].equals("null")) {
                     successLB.setVisible(false);
-                    System.out.println("2");
-                    break;
                 }
                 else{
                     successLB.setVisible(true);
-                    System.out.println("1");
-                    break;
                 }
             }
         }
@@ -117,7 +112,7 @@ public class RegisterAppointmentGUI extends JFrame{
                 for(int i = 0; i < apptData.size(); i++) {
                     if (userData[0].equals(apptData.get(i)[0]) || userData[1].equals(apptData.get(i)[1])) {
 
-                        if (apptData.get(i)[8] != null || apptData.get(i)[9] != null) {
+                        if (!apptData.get(i)[8].equals("null") || !apptData.get(i)[9].equals("null")) {
                             JOptionPane.showConfirmDialog(null, "You have succesfully join the vaccination programme, please proceed to vaccination appointment", "Vaccination Programme Approve!", JOptionPane.DEFAULT_OPTION);
                             people.peoplePage();
                             found = 1;
@@ -156,7 +151,7 @@ public class RegisterAppointmentGUI extends JFrame{
                         }
 
                         if (checkaddress == true && checkTel == true) {
-                            int confirm = JOptionPane.showConfirmDialog(null,"Do you want to proceed?", "Make your decision...", JOptionPane.YES_NO_OPTION);
+                            int confirm = JOptionPane.showConfirmDialog(null,"Do you want to proceed?", "Confirmation", JOptionPane.YES_NO_OPTION);
                             if(confirm == 0)
                             {
                                 Appointment appointment = new Appointment(passport, address, state, icNo,
