@@ -47,7 +47,6 @@ public class IndexGUI extends JFrame{
 //                if(isConfirm == 0) {}
 //                else
 //                {
-//                    JOptionPane.showConfirmDialog(null,"You have succesfully join the vaccination programme, please proceed to vaccination appointment", "Vaccination Programme Approve!", JOptionPane.DEFAULT_OPTION);
 //                }
 
                     People.registerProgrammePage();
