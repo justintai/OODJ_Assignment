@@ -180,7 +180,7 @@ public class UpdateProfileGUI extends JFrame{
                                 address, email, icNo,
                                 passport, state, password,
                                 age, telNo, isAdmin);
-                        user.updateUser();
+                        String[] update = user.updateUser();
 
                         if(admin == 1) {
                             Personnel.managePersonnelPage();
@@ -189,7 +189,7 @@ public class UpdateProfileGUI extends JFrame{
                             Personnel.managePeoplePage();
                         }
                         else{
-                            People people = new People(userData);
+                            People people = new People(update);
                             people.peoplePage();
                         }
                         dispose();

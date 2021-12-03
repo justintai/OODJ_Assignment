@@ -17,7 +17,6 @@ public class UserData {
     private int telNo, age, isAdmin = 0;
     private int userNo;
     private Stack<String[]> userData = new Stack<String[]>();
-    private Stack<String> tempData = new Stack<>();
 
     public UserData() {
         readAll();
@@ -126,8 +125,9 @@ public class UserData {
         }
     }
 
-    public void updateUser() {
+    public String[] updateUser() {
         List<Object> wrt = getAllStringValues();
+        int num = 0;
 
         try(PrintWriter out = new PrintWriter(new FileWriter(Global.userFile,true));) {
             readAll();
@@ -144,6 +144,7 @@ public class UserData {
                 if((userData.get(i)[0].equals(icNo) && !userData.get(i)[0].equals("null"))
                         || (userData.get(i)[1].equals(passport) && !userData.get(i)[1].equals("null")))
                 {
+                    num = i;
                     for(int z = 0; z < userData.get(i).length; z++)
                     {
                         userData.get(i)[z] = wrt.get(z).toString();
@@ -163,9 +164,11 @@ public class UserData {
 
             JOptionPane.showMessageDialog(new JFrame(), "User have been updated",
                     "Register", JOptionPane.INFORMATION_MESSAGE);
+            return userData.get(num);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     public String[] checkLogin(String userID, String password) {
