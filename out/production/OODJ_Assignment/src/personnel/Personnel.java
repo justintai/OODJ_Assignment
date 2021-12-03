@@ -19,6 +19,11 @@ public class Personnel extends User {
         this.personnelData = super.getUserData();
     }
 
+    public Personnel(String[] usrData, int isAdmin) {
+        super(usrData);
+        this.title = super.getTitle();
+    }
+
     public static void personnelPage() {
         JFrame personnelPage = new PersonnelGUI(title, personnelData);
         personnelPage.setLocationRelativeTo(null);

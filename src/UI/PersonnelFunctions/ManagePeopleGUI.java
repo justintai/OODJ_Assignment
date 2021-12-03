@@ -96,7 +96,7 @@ public class ManagePeopleGUI extends JFrame {
                     line = dataTable.getSelectedRow();
                 }
 
-                Personnel personnel = new Personnel(allData.get(line));
+                Personnel personnel = new Personnel(allData.get(line), 1);
                 personnel.UpdateProfilePage(2);
                 dispose();
             }

@@ -49,15 +49,6 @@ public class UpdateProfileGUI extends JFrame{
             passportTF.setText(userData[1]);
         }
 
-        nameTF.setText(userData[2]);
-        birthdateTF.setText(userData[3]);
-        ageTF.setText(userData[5]);
-        telTF.setText(userData[6]);
-        emailTF.setText(userData[7]);
-        addressTA.append(userData[8]);
-        passwordTF.setText(userData[10]);
-        conPasswordTF.setText(userData[10]);
-
         genderCB.addItem("Male");
         genderCB.addItem("Female");
 
@@ -65,6 +56,17 @@ public class UpdateProfileGUI extends JFrame{
         stateCB.addItem("Melaka");
         stateCB.addItem("Kuala Lumpur");
         stateCB.addItem("Pahang");
+
+        nameTF.setText(userData[2]);
+        birthdateTF.setText(userData[3]);
+        genderCB.setSelectedItem(userData[4]);
+        ageTF.setText(userData[5]);
+        telTF.setText(userData[6]);
+        emailTF.setText(userData[7]);
+        addressTA.append(userData[8]);
+        stateCB.setSelectedItem(userData[9]);
+        passwordTF.setText(userData[10]);
+        conPasswordTF.setText(userData[10]);
 
         backButton.addActionListener(new ActionListener() {
             @Override
@@ -178,7 +180,7 @@ public class UpdateProfileGUI extends JFrame{
                                 address, email, icNo,
                                 passport, state, password,
                                 age, telNo, isAdmin);
-                        String[] update = user.updateUser();
+                        user.updateUser();
 
                         if(admin == 1) {
                             Personnel.managePersonnelPage();

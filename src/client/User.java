@@ -54,9 +54,9 @@ public class User {
         return title;
     }
 
-    public static void UpdateProfilePage(int isAmin)
+    public static void UpdateProfilePage(int isAdmin)
     {
-        JFrame updateProfile = new UpdateProfileGUI(title, userData, isAmin);
+        JFrame updateProfile = new UpdateProfileGUI(title, userData, isAdmin);
         updateProfile.setLocationRelativeTo(null);
         updateProfile.setVisible(true);
     }

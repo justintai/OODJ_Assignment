@@ -48,7 +48,8 @@ public class RegisterGUI extends JFrame {
         this.setSize(500, 600);
 
         passportTF.setEditable(false);
-        this.isAdmin = admin;
+        int adminDetect = (admin == 2) ? 0 : admin;
+        this.isAdmin = adminDetect;
 
         genderComboB.addItem("Male");
         genderComboB.addItem("Female");
@@ -77,8 +78,11 @@ public class RegisterGUI extends JFrame {
         backBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(isAdmin == 1) {
+                if(admin == 1) {
                     Personnel.managePersonnelPage();
+                }
+                else if(admin == 2) {
+                    Personnel.managePeoplePage();
                 }
                 else {
                     User.loginPage();
@@ -225,10 +229,13 @@ public class RegisterGUI extends JFrame {
                         JOptionPane.showMessageDialog(new JFrame(), "The user had been registered.",
                                 "Register", JOptionPane.INFORMATION_MESSAGE);
 
-                        if(isAdmin == 1){
+                        if(admin == 1) {
                             Personnel.managePersonnelPage();
                         }
-                        else{
+                        else if(admin == 2) {
+                            Personnel.managePeoplePage();
+                        }
+                        else {
                             User.loginPage();
                         }
                         dispose();
