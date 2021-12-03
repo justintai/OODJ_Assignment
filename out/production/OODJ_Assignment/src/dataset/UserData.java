@@ -132,7 +132,6 @@ public class UserData {
         List<Object> wrt = getAllStringValues();
         int num = 0;
 
-        System.out.println(wrt);
         try(PrintWriter out = new PrintWriter(new FileWriter(Global.userFile,true));) {
             readAll();
             try(PrintWriter clean = new PrintWriter(new FileWriter(Global.userFile, false));)
@@ -145,7 +144,8 @@ public class UserData {
 
             for(int i = 0; i < userData.size(); i++)
             {
-                if(userData.get(i)[0].equals(icNo) || userData.get(i)[1].equals(passport))
+                if((userData.get(i)[0].equals(icNo) && !userData.get(i)[0].equals("null"))
+                        || (userData.get(i)[1].equals(passport) && !userData.get(i)[1].equals("null")))
                 {
                     num = i;
                     for(int z = 0; z < userData.get(i).length; z++)

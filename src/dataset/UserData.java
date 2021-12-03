@@ -144,7 +144,8 @@ public class UserData {
 
             for(int i = 0; i < userData.size(); i++)
             {
-                if(userData.get(i)[0].equals(icNo) || userData.get(i)[1].equals(passport))
+                if((userData.get(i)[0].equals(icNo) && !userData.get(i)[0].equals("null"))
+                        || (userData.get(i)[1].equals(passport) && !userData.get(i)[1].equals("null")))
                 {
                     num = i;
                     for(int z = 0; z < userData.get(i).length; z++)
