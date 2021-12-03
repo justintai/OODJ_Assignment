@@ -24,7 +24,10 @@ public class UserData {
         readAll();
     }
 
-    public UserData(String name, String birthday, String gender, String address, String email, String icNo, String passport, String state, String password, int age, int telNo, int isAdmin) {
+    public UserData(String name, String birthday, String gender,
+                    String address, String email, String icNo,
+                    String passport, String state, String password,
+                    int age, int telNo, int isAdmin) {
         this.name = name;
         this.birthday = birthday;
         this.gender = gender;
@@ -102,6 +105,7 @@ public class UserData {
         if(user.exists())
         {
             List<Object> wrt = getAllStringValues();
+            System.out.println(wrt);
             try(PrintWriter out = new PrintWriter(new FileWriter(Global.userFile,true));) {
                 out.println();
                 for (Object str : wrt) {
@@ -140,7 +144,8 @@ public class UserData {
 
             for(int i = 0; i < userData.size(); i++)
             {
-                if(userData.get(i)[0].equals(icNo) || userData.get(i)[1].equals(passport))
+                if((userData.get(i)[0].equals(icNo) && !userData.get(i)[0].equals("null"))
+                        || (userData.get(i)[1].equals(passport) && !userData.get(i)[1].equals("null")))
                 {
                     num = i;
                     for(int z = 0; z < userData.get(i).length; z++)

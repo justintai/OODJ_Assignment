@@ -29,7 +29,7 @@ public class LoginGUI extends JFrame {
         registerBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                User.registerUser();
+                User.registerUser(0);
                 dispose();
             }
         });

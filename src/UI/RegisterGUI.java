@@ -5,6 +5,7 @@ import dataset.UserData;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
+import personnel.Personnel;
 import sun.nio.ch.Util;
 
 import javax.swing.*;
@@ -18,6 +19,7 @@ import java.util.Properties;
 import java.util.Stack;
 
 import static java.lang.System.exit;
+import static java.lang.System.setIn;
 
 public class RegisterGUI extends JFrame {
     private JPanel registerPanel;
@@ -37,14 +39,16 @@ public class RegisterGUI extends JFrame {
     private JComboBox genderComboB;
     private JDatePickerImpl datePicker;
     private JDatePanelImpl datePanel;
+    private int isAdmin;
 
-    public RegisterGUI(String title) {
+    public RegisterGUI(String title, int admin) {
         this.setTitle(title);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(registerPanel);
         this.setSize(500, 600);
 
         passportTF.setEditable(false);
+        this.isAdmin = admin;
 
         genderComboB.addItem("Male");
         genderComboB.addItem("Female");
@@ -73,8 +77,12 @@ public class RegisterGUI extends JFrame {
         backBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                User.loginPage();
-
+                if(isAdmin == 1) {
+                    Personnel.managePersonnelPage();
+                }
+                else {
+                    User.loginPage();
+                }
                 dispose();
             }
         });
@@ -103,7 +111,7 @@ public class RegisterGUI extends JFrame {
                             icNo = null,
                             passport = null;
 
-                    int telNo = 0, age = 0, isAdmin=0;
+                    int telNo = 0, age = 0;
 
                     if(!nameTF.getText().isEmpty()){
                         name = nameTF.getText();
@@ -180,7 +188,7 @@ public class RegisterGUI extends JFrame {
                                 if (!icTF.getText().equals(data.get(i)[0])) {
                                     icNo = icTF.getText();
                                 } else {
-                                    checkPassport = "This IC already registered.";
+                                    checkPassport = "This IC already registered.\n";
                                 }
                             }
                         }
@@ -209,14 +217,20 @@ public class RegisterGUI extends JFrame {
                     if(checkName == "" && checkBirthday == "" && checkTel == "" &&
                             checkAddress == "" && checkEmail == "" && checkAge == "" &&
                             checkIc == "" && checkPassport=="" && checkPassword == ""){
-                        UserData user = new UserData(name, birthday, gender, address, email, icNo, passport, state, password, age, telNo, isAdmin);
+                        UserData user = new UserData(name, birthday, gender,
+                                address, email, icNo, passport,
+                                state, password, age, telNo, isAdmin);
                         user.writeAll();
 
                         JOptionPane.showMessageDialog(new JFrame(), "The user had been registered.",
                                 "Register", JOptionPane.INFORMATION_MESSAGE);
 
-                        User.loginPage();
-
+                        if(isAdmin == 1){
+                            Personnel.managePersonnelPage();
+                        }
+                        else{
+                            User.loginPage();
+                        }
                         dispose();
                     }
                     else {

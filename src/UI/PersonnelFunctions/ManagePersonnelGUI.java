@@ -3,6 +3,7 @@ package UI.PersonnelFunctions;
 import Global.Global;
 import Search.Search;
 import dataset.UserData;
+import dataset.VaccineData;
 import personnel.Personnel;
 
 import javax.swing.*;
@@ -15,22 +16,22 @@ import java.awt.event.MouseListener;
 import java.io.File;
 import java.util.Stack;
 
-public class ManagePeopleGUI extends JFrame {
-    private JPanel managePeoplePanel;
-    private JLabel dataTotal;
+public class ManagePersonnelGUI extends JFrame {
+    private JPanel managePersonnelPanel;
     private JTextField searchTF;
-    private JTable dataTable;
     private JButton backButton;
     private JButton addButton;
+    private JTable dataTable;
+    private JLabel dataTotal;
     private String searchWord;
     private Stack<String[]> allData = new Stack<>();
     private Stack<String[]> sortData = new Stack<>();
     private Stack<Integer> index = null;
 
-    public ManagePeopleGUI(String title) {
+    public ManagePersonnelGUI(String title) {
         this.setTitle(title);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setContentPane(managePeoplePanel);
+        this.setContentPane(managePersonnelPanel);
         this.setSize(500, 500);
 
         int totalData = 0;
@@ -41,7 +42,7 @@ public class ManagePeopleGUI extends JFrame {
             allData = userData.getUserData();
 
             Search personnelData = new Search();
-            index = personnelData.searchPeople("null");
+            index = personnelData.searchPersonnel("null");
             totalData = index.size();
 
             for (int i=0; i<index.size(); i++) {
@@ -57,7 +58,7 @@ public class ManagePeopleGUI extends JFrame {
                     searchTF.setText("");
 
                     Search search = new Search();
-                    index = search.searchPeople(searchWord);
+                    index = search.searchPersonnel(searchWord);
                     Stack<String[]> oldData = allData;
                     Stack<String[]> newData = new Stack<>();
 
@@ -97,7 +98,7 @@ public class ManagePeopleGUI extends JFrame {
                 }
 
                 Personnel personnel = new Personnel(allData.get(line));
-                personnel.UpdateProfilePage(2);
+                personnel.UpdateProfilePage(1);
                 dispose();
             }
 
@@ -133,7 +134,7 @@ public class ManagePeopleGUI extends JFrame {
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Personnel.registerUser(2);
+                Personnel.registerUser(1);
                 dispose();
             }
         });

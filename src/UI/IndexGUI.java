@@ -41,7 +41,7 @@ public class IndexGUI extends JFrame{
         editProfileButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                People.UpdateProfilePage();
+                People.UpdateProfilePage(0);
                 dispose();
             }
         });

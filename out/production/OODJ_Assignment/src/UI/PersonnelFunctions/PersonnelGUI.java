@@ -62,7 +62,8 @@ public class PersonnelGUI extends JFrame {
         managePersonnelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                Personnel.managePersonnelPage();
+                dispose();
             }
         });
 
@@ -73,7 +74,7 @@ public class PersonnelGUI extends JFrame {
                 dispose();
             }
         });
-        
+
         reportButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

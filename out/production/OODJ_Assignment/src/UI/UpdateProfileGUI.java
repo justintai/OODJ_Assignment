@@ -4,6 +4,7 @@ import client.People;
 import client.User;
 import dataset.UserData;
 import org.jdatepicker.impl.JDatePickerImpl;
+import personnel.Personnel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -26,8 +27,9 @@ public class UpdateProfileGUI extends JFrame{
     private JTextField conPasswordTF;
     private JPanel updatePanel;
     private JTextField birthdateTF;
+    private int isAdmin;
 
-    public UpdateProfileGUI( String title, String[] userData)
+    public UpdateProfileGUI( String title, String[] userData, int admin)
     {
         this.setTitle(title);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -37,6 +39,8 @@ public class UpdateProfileGUI extends JFrame{
         icTF.setEditable(false);
         passportTF.setEditable(false);
         birthdateTF.setEditable(false);
+        int adminDetect = (admin == 2) ? 0 : admin;
+        this.isAdmin = adminDetect;
 
         if(!userData[0].equals("null")) {
             icTF.setText(userData[0]);
@@ -65,9 +69,16 @@ public class UpdateProfileGUI extends JFrame{
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                People people = new People(userData);
-                people.peoplePage();
-
+                if(admin == 1) {
+                    Personnel.managePersonnelPage();
+                }
+                else if (admin == 2){
+                    Personnel.managePeoplePage();
+                }
+                else{
+                    People people = new People(userData);
+                    people.peoplePage();
+                }
                 dispose();
             }
         });
@@ -93,7 +104,7 @@ public class UpdateProfileGUI extends JFrame{
                             icNo = null,
                             passport = null;
 
-                    int telNo = 0, age = 0, isAdmin=0;
+                    int telNo = 0, age = 0;
 
                     if(!nameTF.getText().isEmpty()){
                         name = nameTF.getText();
@@ -163,11 +174,22 @@ public class UpdateProfileGUI extends JFrame{
                     if(checkName == "" && checkTel == "" && checkAddress == ""
                         && checkEmail == "" && checkAge == "" && checkPassword == "")
                     {
-                        UserData user = new UserData(name, birthday, gender, address, email, icNo, passport, state, password, age, telNo, isAdmin);
+                        UserData user = new UserData(name, birthday, gender,
+                                address, email, icNo,
+                                passport, state, password,
+                                age, telNo, isAdmin);
                         String[] update = user.updateUser();
-                        People people = new People(update);
-                        people.peoplePage();
 
+                        if(admin == 1) {
+                            Personnel.managePersonnelPage();
+                        }
+                        else if (admin == 2){
+                            Personnel.managePeoplePage();
+                        }
+                        else{
+                            People people = new People(userData);
+                            people.peoplePage();
+                        }
                         dispose();
                     }
                     else {
