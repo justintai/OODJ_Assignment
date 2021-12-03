@@ -39,7 +39,8 @@ public class UpdateProfileGUI extends JFrame{
         icTF.setEditable(false);
         passportTF.setEditable(false);
         birthdateTF.setEditable(false);
-        this.isAdmin = admin;
+        int adminDetect = (admin == 2) ? 0 : admin;
+        this.isAdmin = adminDetect;
 
         if(!userData[0].equals("null")) {
             icTF.setText(userData[0]);
@@ -68,10 +69,13 @@ public class UpdateProfileGUI extends JFrame{
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                if(isAdmin == 1) {
+                if(admin == 1) {
                     Personnel.managePersonnelPage();
                 }
-                else {
+                else if (admin == 2){
+                    Personnel.managePeoplePage();
+                }
+                else{
                     People people = new People(userData);
                     people.peoplePage();
                 }
@@ -176,11 +180,14 @@ public class UpdateProfileGUI extends JFrame{
                                 age, telNo, isAdmin);
                         String[] update = user.updateUser();
 
-                        if(isAdmin == 1) {
+                        if(admin == 1) {
                             Personnel.managePersonnelPage();
                         }
-                        else {
-                            People people = new People(update);
+                        else if (admin == 2){
+                            Personnel.managePeoplePage();
+                        }
+                        else{
+                            People people = new People(userData);
                             people.peoplePage();
                         }
                         dispose();

@@ -88,8 +88,4 @@ public class Personnel extends User {
         managePersonnelPage.setVisible(true);
     }
 
-    public static void updatePersonnel(Stack<String[]> data) {
-        VaccinationCentreData vaccinationCentreData = new VaccinationCentreData();
-        vaccinationCentreData.updateVaccinationCentreData(data);
-    }
 }
