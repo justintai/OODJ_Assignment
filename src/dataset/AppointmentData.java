@@ -1,31 +1,29 @@
 package dataset;
 
 import Global.Global;
-import client.User;
 
 import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Appointment {
+public class AppointmentData {
     private int isDone1, isDone2, isConfirm, telNo;
     private String passportNo, address, state, ICNo, name, vac1, vac2, vaccineCode, centreCode;
     private Stack<String[]> apptData = new Stack<>();
 
-    public Appointment()
+    public AppointmentData()
     {
         readAllAppointment();
     }
 
-    public Appointment(String passportNo, String address, String state,
-                       String ICNo, int telNo, String name, String vac1,
-                       String vac2, String vaccineCode, String centreCode,
-                       int isDone1, int isDone2, int isConfirm)
+    public AppointmentData(String passportNo, String address, String state,
+                           String ICNo, int telNo, String name, String vac1,
+                           String vac2, String vaccineCode, String centreCode,
+                           int isDone1, int isDone2, int isConfirm)
     {
         this.passportNo = passportNo;
         this.address = address;
@@ -42,7 +40,7 @@ public class Appointment {
         this.isConfirm = isConfirm;
     }
 
-    public List<Object> getAllApointmentValues()
+    public List<Object> getAllAppointmentValues()
     {
         List<Object> data = new ArrayList<>();
         data.add(ICNo);
@@ -90,7 +88,7 @@ public class Appointment {
         File user = new File(Global.registerAppointmentFile);
         if(user.exists())
         {
-            List<Object> wrt = getAllApointmentValues();
+            List<Object> wrt = getAllAppointmentValues();
             try(PrintWriter out = new PrintWriter(new FileWriter(Global.registerAppointmentFile, true));)
             {
                 out.println();
@@ -105,7 +103,7 @@ public class Appointment {
             JOptionPane.showMessageDialog(new JFrame(), "Appointment Created!", "Appointment", JOptionPane.INFORMATION_MESSAGE);
 
         } else{
-            List<Object> wrt = getAllApointmentValues();
+            List<Object> wrt = getAllAppointmentValues();
             try(PrintWriter out = new PrintWriter(new FileWriter(Global.registerAppointmentFile));)
             {
                 for(Object str : wrt)
@@ -123,7 +121,7 @@ public class Appointment {
 
     public void updateAppointment()
     {
-        List<Object> wrt = getAllApointmentValues();
+        List<Object> wrt = getAllAppointmentValues();
         try(PrintWriter out = new PrintWriter(new FileWriter(Global.registerAppointmentFile, true));)
         {
             readAllAppointment();

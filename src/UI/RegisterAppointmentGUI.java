@@ -1,11 +1,9 @@
 package UI;
 
 import client.People;
-import dataset.Appointment;
+import dataset.AppointmentData;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import java.awt.*;
 import java.awt.event.*;
 import java.util.Stack;
 
@@ -154,7 +152,7 @@ public class RegisterAppointmentGUI extends JFrame{
                             int confirm = JOptionPane.showConfirmDialog(null,"Do you want to proceed?", "Confirmation", JOptionPane.YES_NO_OPTION);
                             if(confirm == 0)
                             {
-                                Appointment appointment = new Appointment(passport, address, state, icNo,
+                                AppointmentData appointmentData = new AppointmentData(passport, address, state, icNo,
                                         telno, name, vac1, vac2, vaccineCode,
                                         centreCode, isDone1, isDone2,  isConfirm);
 
@@ -163,13 +161,13 @@ public class RegisterAppointmentGUI extends JFrame{
                                     if(userData[0].equals(apptData.get(i)[0]) || userData[1].equals(apptData.get(i)[1]))
                                     {
                                         complete = 1;
-                                        appointment.updateAppointment();
+                                        appointmentData.updateAppointment();
                                     }
                                 }
 
                                 if(complete == 0)
                                 {
-                                    appointment.writeAllAppointment();
+                                    appointmentData.writeAllAppointment();
                                 }
 
                                 people.peoplePage();

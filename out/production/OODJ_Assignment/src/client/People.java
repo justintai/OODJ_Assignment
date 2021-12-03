@@ -2,8 +2,7 @@ package client;
 
 import UI.IndexGUI;
 import UI.ManageAppointmentGUI;
-import UI.RegisterAppointmentGUI;
-import dataset.Appointment;
+import dataset.AppointmentData;
 import dataset.VaccinationCentreData;
 import dataset.VaccineData;
 
@@ -30,10 +29,10 @@ public class People extends User {
 
     public static void manageAppointment()
     {
-        Appointment appointment = new Appointment();
+        AppointmentData appointmentData = new AppointmentData();
         VaccineData vaccineData = new VaccineData();
         VaccinationCentreData vaccinationCentreData = new VaccinationCentreData();
-        Stack<String[]> apptData = appointment.getAppointmentData();
+        Stack<String[]> apptData = appointmentData.getAppointmentData();
         Stack<String[]> vacData = vaccineData.getVaccineData();
         Stack<String[]> vacCentreData = vaccinationCentreData.getCentreData();
         ManageAppointmentGUI manageAppointmentGUI = new ManageAppointmentGUI(title,peopleData,apptData,vacData,vacCentreData);

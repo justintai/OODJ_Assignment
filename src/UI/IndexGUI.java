@@ -2,8 +2,7 @@ package UI;
 
 import client.People;
 import client.User;
-import dataset.Appointment;
-import dataset.UserData;
+import dataset.AppointmentData;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -65,8 +64,8 @@ public class IndexGUI extends JFrame{
         checkVaccinationAppointmentButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                Appointment appointment = new Appointment();
-                Stack<String[]> apptData = appointment.getAppointmentData();
+                AppointmentData appointmentData = new AppointmentData();
+                Stack<String[]> apptData = appointmentData.getAppointmentData();
                 for(int i = 0; i < apptData.size(); i++)
                 {
                     if(userData[0].equals(apptData.get(i)[0]) || userData[1].equals(apptData.get(i)[1]))

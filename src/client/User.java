@@ -4,7 +4,7 @@ import UI.LoginGUI;
 import UI.RegisterAppointmentGUI;
 import UI.RegisterGUI;
 import UI.UpdateProfileGUI;
-import dataset.Appointment;
+import dataset.AppointmentData;
 
 import javax.swing.*;
 import java.util.Stack;
@@ -26,8 +26,8 @@ public class User {
 
     public static void registerProgrammePage()
     {
-        Appointment appointment = new Appointment();
-        Stack<String[]> apptData = appointment.getAppointmentData();
+        AppointmentData appointmentData = new AppointmentData();
+        Stack<String[]> apptData = appointmentData.getAppointmentData();
         RegisterAppointmentGUI registerProgramme = new RegisterAppointmentGUI(title,userData, apptData);
         registerProgramme.setLocationRelativeTo(null);
         registerProgramme.setVisible(true);

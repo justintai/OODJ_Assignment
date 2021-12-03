@@ -88,9 +88,21 @@ public class Personnel extends User {
 
 //    Manage Personnel
     public static void managePersonnelPage() {
-        JFrame managePersonnelPage = new ManagePersonnelGUI(title);
-        managePersonnelPage.setLocationRelativeTo(null);
-        managePersonnelPage.setVisible(true);
+        JFrame managePersonnel = new ManagePersonnelGUI(title);
+        managePersonnel.setLocationRelativeTo(null);
+        managePersonnel.setVisible(true);
     }
 
+//    Manage Appointment
+    public static void manageAppointmentPage() {
+        JFrame manageAppointment = new ManageAppointmentGUI(title);
+        manageAppointment.setLocationRelativeTo(null);
+        manageAppointment.setVisible(true);
+    }
+
+    public static void editAppointmentPage() {
+        JFrame editAppointment = new EditAppointmentGUI(title);
+        editAppointment.setLocationRelativeTo(null);
+        editAppointment.setVisible(true);
+    }
 }

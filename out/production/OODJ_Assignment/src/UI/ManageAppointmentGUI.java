@@ -1,7 +1,7 @@
 package UI;
 
 import client.People;
-import dataset.Appointment;
+import dataset.AppointmentData;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -92,9 +92,9 @@ public class ManageAppointmentGUI extends JFrame {
                     {
                         if(userData[0].equals(apptData.get(i)[0]) && userData[1].equals("null") || userData[1].equals(apptData.get(i)[1]) && userData[0].equals("null"))
                         {
-                            Appointment appointment = new Appointment();
+                            AppointmentData appointmentData = new AppointmentData();
                             People people = new People(userData);
-                            appointment.updateConfirmation(apptData.get(i),2);
+                            appointmentData.updateConfirmation(apptData.get(i),2);
                             people.peoplePage();
                             dispose();
                         }
@@ -112,9 +112,9 @@ public class ManageAppointmentGUI extends JFrame {
                     {
                         if(userData[0].equals(apptData.get(i)[0]) || userData[1].equals(apptData.get(i)[1]))
                         {
-                            Appointment appointment = new Appointment();
+                            AppointmentData appointmentData = new AppointmentData();
                             People people = new People(userData);
-                            appointment.updateConfirmation(apptData.get(i),1);
+                            appointmentData.updateConfirmation(apptData.get(i),1);
                             people.peoplePage();
                             dispose();
                         }

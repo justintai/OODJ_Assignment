@@ -39,7 +39,8 @@ public class PersonnelGUI extends JFrame {
         manageAppointmentButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                Personnel.manageAppointmentPage();
+                dispose();
             }
         });
 
