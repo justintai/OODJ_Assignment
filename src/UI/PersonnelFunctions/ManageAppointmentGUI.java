@@ -2,6 +2,7 @@ package UI.PersonnelFunctions;
 
 import Global.Global;
 import Search.Search;
+import dataset.AppointmentData;
 import dataset.VaccinationCentreData;
 import personnel.Personnel;
 
@@ -36,10 +37,10 @@ public class ManageAppointmentGUI extends JFrame {
         int totalData = 0;
         sortData = null;
 
-        File file = new File(Global.centreFile);
+        File file = new File(Global.appointmentFile);
         if(file.exists()){
-            VaccinationCentreData centreData = new VaccinationCentreData();
-            allData = centreData.getCentreData();
+            AppointmentData appointmentData = new AppointmentData();
+            allData = appointmentData.getAppointmentData();
             totalData = allData.size();
 
             showTable(allData);
