@@ -190,51 +190,6 @@ public class AppointmentData {
         }
     }
 
-    public void updateConfirmation(String[] replace, int confirm)
-    {
-        try(PrintWriter out = new PrintWriter(new FileWriter(Global.appointmentFile, true));)
-        {
-            readAllAppointment();
-            try(PrintWriter clean = new PrintWriter(new FileWriter(Global.appointmentFile,false));)
-            {
-                clean.flush();
-                clean.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            for(int i = 0; i < apptData.size(); i++)
-            {
-                if(apptData.get(i)[0].equals(replace[0])|| apptData.get(i)[1].equals(replace[1]))
-                {
-                    for(int j = 0; j < apptData.get(i).length; j++)
-                    {
-                        System.out.println(replace[j]);
-                        System.out.println(apptData.get(i)[j]);
-                        apptData.get(i)[j] = replace[j];
-                    }
-                    apptData.get(i)[12] = String.valueOf(confirm);
-//                    System.out.println(apptData.get(i)[12]);
-                }
-
-                for(int k = 0; k < apptData.get(i).length; k++)
-                {
-                    System.out.println("test");
-                    out.write(apptData.get(i)[k] + "%");
-                }
-
-                if(i < apptData.size()-1)
-                {
-                    out.println();
-                }
-            }
-
-            JOptionPane.showMessageDialog(new JFrame(), "Vaccination Appointment Updated", "Vaccination", JOptionPane.INFORMATION_MESSAGE);
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-    }
-
 }
 
 

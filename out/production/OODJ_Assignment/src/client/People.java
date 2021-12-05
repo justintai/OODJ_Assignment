@@ -27,15 +27,9 @@ public class People extends User {
         indexPage.setVisible(true);
     }
 
-    public static void manageAppointment()
+    public static void manageAppointment(int currentUser)
     {
-        AppointmentData appointmentData = new AppointmentData();
-        VaccineData vaccineData = new VaccineData();
-        VaccinationCentreData vaccinationCentreData = new VaccinationCentreData();
-        Stack<String[]> apptData = appointmentData.getAppointmentData();
-        Stack<String[]> vacData = vaccineData.getVaccineData();
-        Stack<String[]> vacCentreData = vaccinationCentreData.getCentreData();
-        ManageAppointmentGUI manageAppointmentGUI = new ManageAppointmentGUI(title,peopleData,apptData,vacData,vacCentreData);
+        ManageAppointmentGUI manageAppointmentGUI = new ManageAppointmentGUI(title,peopleData,currentUser);
         manageAppointmentGUI.setLocationRelativeTo(null);
         manageAppointmentGUI.setVisible(true);
 

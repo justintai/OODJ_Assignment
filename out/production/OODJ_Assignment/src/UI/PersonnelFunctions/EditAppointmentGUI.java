@@ -1,6 +1,7 @@
 package UI.PersonnelFunctions;
 
 import Global.Global;
+import client.People;
 import dataset.AppointmentData;
 import dataset.VaccinationCentreData;
 import dataset.VaccineData;
@@ -137,21 +138,6 @@ public class EditAppointmentGUI extends JFrame{
                     } catch (NumberFormatException e) {
                         e.printStackTrace();
                     }
-                }
-
-                if(dose1Date.getModel().getValue() != "" && !allData.get(editLine)[6].equals("null")) {
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-                    Date d1 = (Date) dose1Date.getModel().getValue();
-
-                    Calendar cal = Calendar.getInstance();
-                    cal.setTime(d1);
-                    cal.add(Calendar.DAY_OF_MONTH, 14);
-                    String date2 = dateFormat.format(cal.getTime());
-                    String[] dateData2 = date2.split("-");
-                    System.out.println(dateData2[1]);
-                    datePanel2.getModel().setDate(Integer.parseInt(dateData2[2]),
-                            Integer.parseInt(dateData2[1]) - 1,
-                            Integer.parseInt(dateData2[0]));
                 }
             }
         }
@@ -297,7 +283,46 @@ public class EditAppointmentGUI extends JFrame{
         deleteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                int check = JOptionPane.showConfirmDialog(null,
+                        "Are you sure to delete this appointment?", "Confirmation",
+                        JOptionPane.YES_NO_OPTION);
 
+                if(check == 0) {
+                    allData.get(editLine)[6] = "null";
+                    allData.get(editLine)[7] = "null";
+                    allData.get(editLine)[8] = "null";
+                    allData.get(editLine)[9] = "null";
+                    allData.get(editLine)[10] = "0";
+                    allData.get(editLine)[11] = "0";
+
+                    Personnel.updateAppointment(allData);
+                    JOptionPane.showMessageDialog(new JFrame(), "The appointment had been reset.",
+                            "Edit Appointment", JOptionPane.INFORMATION_MESSAGE);
+                    Personnel.manageAppointmentPage();
+                    dispose();
+                }
+            }
+        });
+
+        dose1Date.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                /*Auto assign date to 2nd dose*/
+                if(dose1Date.getModel().getValue() != "") {
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                    Date d1 = (Date) dose1Date.getModel().getValue();
+
+                    Calendar cal = Calendar.getInstance();
+                    cal.setTime(d1);
+                    cal.add(Calendar.DAY_OF_MONTH, 14);
+                    String date2 = dateFormat.format(cal.getTime());
+                    String[] dateData2 = date2.split("-");
+                    dose2Date.getModel().setDate(Integer.parseInt(dateData2[2]),
+                            Integer.parseInt(dateData2[1]) - 1,
+                            Integer.parseInt(dateData2[0]));
+                    System.out.println(dose2Date);
+                    dose2Date.getModel().setSelected(true);
+                }
             }
         });
     }

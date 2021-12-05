@@ -72,7 +72,7 @@ public class IndexGUI extends JFrame{
                     {
                         if((!apptData.get(i)[8].equals("null")) && (!apptData.get(i)[9].equals("null")))
                         {
-                            People.manageAppointment();
+                            People.manageAppointment(i);
                             dispose();
                         } else {
                             JOptionPane.showMessageDialog(new JFrame(), "Please Register Vaccination Programme First !", "Vaccine Programme", JOptionPane.WARNING_MESSAGE);

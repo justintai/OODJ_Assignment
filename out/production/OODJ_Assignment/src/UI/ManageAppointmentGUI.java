@@ -2,6 +2,9 @@ package UI;
 
 import client.People;
 import dataset.AppointmentData;
+import dataset.VaccinationCentreData;
+import dataset.VaccineData;
+import personnel.Personnel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -21,8 +24,11 @@ public class ManageAppointmentGUI extends JFrame {
     private JButton approveButton;
     private JButton rejectButton;
     private JButton backButton;
+    private Stack<String[]> allData;
+    private Stack<String[]> centreData;
+    private Stack<String[]> vaccineData;
 
-    public ManageAppointmentGUI(String title, String[] userData, Stack<String[]> apptData, Stack<String[]> vacData, Stack<String[]> vacCentreData)
+    public ManageAppointmentGUI(String title, String[] userData, int currentUser)
     {
         this.setTitle(title);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -31,52 +37,57 @@ public class ManageAppointmentGUI extends JFrame {
         vac1LB.setVisible(false);
         vac2LB.setVisible(false);
 
-        for(int i = 0; i < apptData.size(); i++)
+        AppointmentData appointmentData = new AppointmentData();
+        allData = appointmentData.getAppointmentData();
+        VaccinationCentreData vacCentreData = new VaccinationCentreData();
+        centreData = vacCentreData.getCentreData();
+        VaccineData vacData = new VaccineData();
+        vaccineData = vacData.getVaccineData();
+
+        for(int i = 0; i < allData.size(); i++)
         {
-            if(userData[0].equals(apptData.get(i)[0]) && userData[1].equals("null"))
+            if(userData[0].equals(allData.get(i)[0]) && userData[1].equals("null"))
             {
-                nameLB.setText("Name: " + apptData.get(i)[2]);
-                icLB.setText("Ic No: " + apptData.get(i)[0]);
+                nameLB.setText("Name: " + allData.get(i)[2]);
+                icLB.setText("Ic No: " + allData.get(i)[0]);
             }
-            if(userData[1].equals(apptData.get(i)[1]) && userData[0].equals("null"))
+            if(userData[1].equals(allData.get(i)[1]) && userData[0].equals("null"))
             {
-                nameLB.setText("Name: " + apptData.get(i)[2]);
-                icLB.setText("Passport No: " + apptData.get(i)[1]);
+                nameLB.setText("Name: " + allData.get(i)[2]);
+                icLB.setText("Passport No: " + allData.get(i)[1]);
             }
         }
 
-        for(int i = 0; i < apptData.size(); i++)
+        for(int i = 0; i < allData.size(); i++)
         {
-            if(userData[0].equals(apptData.get(i)[0]) || userData[1].equals(apptData.get(i)[1]))
+            if(userData[0].equals(allData.get(i)[0]) || userData[1].equals(allData.get(i)[1]))
             {
-                for(int j = 0; j < vacData.size(); j++)
+                for(int j = 0; j < allData.size(); j++)
                 {
-                    if(apptData.get(i)[8].equals(vacData.get(j)[0]))
+                    if(allData.get(i)[8].equals(allData.get(j)[0]))
                     {
-                        vacTypeLB.setText("Vaccine Type: " + vacData.get(j)[1]);
+                        vacTypeLB.setText("Vaccine Type: " + vaccineData.get(j)[1]);
                     }
                 }
 
-                for(int k = 0; k < vacCentreData.size(); k++)
+                for(int k = 0; k < centreData.size(); k++)
                 {
-                    if(apptData.get(i)[9].equals(vacCentreData.get(k)[0]))
+                    if(allData.get(i)[9].equals(centreData.get(k)[0]))
                     {
-                        locationLB.setText("<html>Location: " + vacCentreData.get(k)[1] + vacCentreData.get(k)[2] + "<br/>" + vacCentreData.get(k)[3] + "</html>");
+                        locationLB.setText("<html>Location: " + centreData.get(k)[1] + centreData.get(k)[2] + "<br/>" + centreData.get(k)[3] + "</html>");
                     }
                 }
 
 
-                if((!apptData.get(i)[6].equals("null")) && apptData.get(i)[7].equals("null"))
+                if((!allData.get(i)[6].equals("null")) && allData.get(i)[7].equals("null"))
                 {
-                    System.out.println("3");
                     vac1LB.setVisible(true);
-                    vac1LB.setText("First Dose: " + apptData.get(i)[6]);
+                    vac1LB.setText("First Dose: " + allData.get(i)[6]);
                 } else {
-                    System.out.println("4");
                     vac1LB.setVisible(true);
                     vac2LB.setVisible(true);
-                    vac1LB.setText("First Dose: " + apptData.get(i)[6]);
-                    vac2LB.setText("Second Dose: " + apptData.get(i)[7]);
+                    vac1LB.setText("First Dose: " + allData.get(i)[6]);
+                    vac2LB.setText("Second Dose: " + allData.get(i)[7]);
                 }
 
 
@@ -86,39 +97,31 @@ public class ManageAppointmentGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 int check = JOptionPane.showConfirmDialog(null,"Acceptance vaccine confirmation", "Confirmation", JOptionPane.YES_NO_OPTION);
-                if(check == 0)
+                if(check == 0 && currentUser != -1)
                 {
-                    for(int i = 0; i < apptData.size(); i++)
-                    {
-                        if(userData[0].equals(apptData.get(i)[0]) && userData[1].equals("null") || userData[1].equals(apptData.get(i)[1]) && userData[0].equals("null"))
-                        {
-                            AppointmentData appointmentData = new AppointmentData();
-                            People people = new People(userData);
-                            appointmentData.updateConfirmation(apptData.get(i),2);
-                            people.peoplePage();
-                            dispose();
-                        }
-                    }
+                    allData.get(currentUser)[12] = "1";
+                    People.updateAppointment(allData);
+                    JOptionPane.showMessageDialog(new JFrame(), "You had confirmed the vaccination appointment.",
+                            "Appointment", JOptionPane.INFORMATION_MESSAGE);
+                    People.peoplePage();
+                    dispose();
                 }
             }
         });
         rejectButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                int check = JOptionPane.showConfirmDialog(null,"Do you want to reject the vaccine?", "Confirmation", JOptionPane.YES_NO_OPTION);
-                if(check == 0)
+                int check = JOptionPane.showConfirmDialog(null,
+                        "Do you want to reject the vaccine?", "Confirmation",
+                        JOptionPane.YES_NO_OPTION);
+                if(check == 0 && currentUser != -1)
                 {
-                    for(int i = 0; i < apptData.size(); i++)
-                    {
-                        if(userData[0].equals(apptData.get(i)[0]) || userData[1].equals(apptData.get(i)[1]))
-                        {
-                            AppointmentData appointmentData = new AppointmentData();
-                            People people = new People(userData);
-                            appointmentData.updateConfirmation(apptData.get(i),1);
-                            people.peoplePage();
-                            dispose();
-                        }
-                    }
+                    allData.get(currentUser)[12] = "2";
+                    People.updateAppointment(allData);
+                    JOptionPane.showMessageDialog(new JFrame(), "You had rejected the vaccination appointment.",
+                            "Appointment", JOptionPane.INFORMATION_MESSAGE);
+                    People.peoplePage();
+                    dispose();
                 }
 
             }

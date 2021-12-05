@@ -61,6 +61,11 @@ public class User {
         updateProfile.setVisible(true);
     }
 
+    public static void updateAppointment(Stack<String[]> data) {
+        AppointmentData appointmentData = new AppointmentData();
+        appointmentData.updateAppointment(data);
+    }
+
     public static void logout() {
         System.gc();
         loginPage();

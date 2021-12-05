@@ -106,9 +106,4 @@ public class Personnel extends User {
         editAppointment.setLocationRelativeTo(null);
         editAppointment.setVisible(true);
     }
-
-    public static void updateAppointment(Stack<String[]> data) {
-        AppointmentData appointmentData = new AppointmentData();
-        appointmentData.updateAppointment(data);
-    }
 }
