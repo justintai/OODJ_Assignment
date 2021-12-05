@@ -63,7 +63,7 @@ public class AppointmentData {
     public void readAllAppointment()
     {
         String usrData[], line;
-        try(BufferedReader in = new BufferedReader(new FileReader(Global.registerAppointmentFile));) {
+        try(BufferedReader in = new BufferedReader(new FileReader(Global.appointmentFile));) {
             while((line = in.readLine()) !=null) {
                 usrData = line.split("%");
                 apptData.push(usrData);
@@ -85,11 +85,11 @@ public class AppointmentData {
 
     public void writeAllAppointment()
     {
-        File user = new File(Global.registerAppointmentFile);
+        File user = new File(Global.appointmentFile);
         if(user.exists())
         {
             List<Object> wrt = getAllAppointmentValues();
-            try(PrintWriter out = new PrintWriter(new FileWriter(Global.registerAppointmentFile, true));)
+            try(PrintWriter out = new PrintWriter(new FileWriter(Global.appointmentFile, true));)
             {
                 out.println();
                 for(Object str : wrt)
@@ -104,7 +104,7 @@ public class AppointmentData {
 
         } else{
             List<Object> wrt = getAllAppointmentValues();
-            try(PrintWriter out = new PrintWriter(new FileWriter(Global.registerAppointmentFile));)
+            try(PrintWriter out = new PrintWriter(new FileWriter(Global.appointmentFile));)
             {
                 for(Object str : wrt)
                 {
@@ -122,10 +122,10 @@ public class AppointmentData {
     public void updateAppointment()
     {
         List<Object> wrt = getAllAppointmentValues();
-        try(PrintWriter out = new PrintWriter(new FileWriter(Global.registerAppointmentFile, true));)
+        try(PrintWriter out = new PrintWriter(new FileWriter(Global.appointmentFile, true));)
         {
             readAllAppointment();
-            try(PrintWriter clean = new PrintWriter(new FileWriter(Global.registerAppointmentFile,false));)
+            try(PrintWriter clean = new PrintWriter(new FileWriter(Global.appointmentFile,false));)
             {
                 clean.flush();
                 clean.close();
@@ -160,12 +160,42 @@ public class AppointmentData {
         }
     }
 
+    public void updateAppointment(Stack<String[]> newData) {
+        try(PrintWriter out = new PrintWriter(new FileWriter(Global.appointmentFile,true));) {
+            try (PrintWriter clean = new PrintWriter(new FileWriter(Global.appointmentFile, false));) {
+                clean.flush();
+                clean.close();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            for(int i=0; i<newData.size(); i++) {
+                for(int j = 0; j < newData.get(i).length; j++)
+                {
+                    out.write(newData.get(i)[j] + "%");
+                }
+
+                if(i<newData.size()-1){
+                    out.println();
+                }
+            }
+        }
+        catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(new JFrame(), "File not exist!",
+                    "Appointment Data", JOptionPane.ERROR_MESSAGE);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void updateConfirmation(String[] replace, int confirm)
     {
-        try(PrintWriter out = new PrintWriter(new FileWriter(Global.registerAppointmentFile, true));)
+        try(PrintWriter out = new PrintWriter(new FileWriter(Global.appointmentFile, true));)
         {
             readAllAppointment();
-            try(PrintWriter clean = new PrintWriter(new FileWriter(Global.registerAppointmentFile,false));)
+            try(PrintWriter clean = new PrintWriter(new FileWriter(Global.appointmentFile,false));)
             {
                 clean.flush();
                 clean.close();

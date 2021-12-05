@@ -2,6 +2,7 @@ package personnel;
 
 import UI.PersonnelFunctions.*;
 import client.User;
+import dataset.AppointmentData;
 import dataset.VaccinationCentreData;
 import dataset.VaccineData;
 
@@ -100,9 +101,14 @@ public class Personnel extends User {
         manageAppointment.setVisible(true);
     }
 
-    public static void editAppointmentPage() {
-        JFrame editAppointment = new EditAppointmentGUI(title);
+    public static void editAppointmentPage(int editLine) {
+        JFrame editAppointment = new EditAppointmentGUI(title, editLine);
         editAppointment.setLocationRelativeTo(null);
         editAppointment.setVisible(true);
+    }
+
+    public static void updateAppointment(Stack<String[]> data) {
+        AppointmentData appointmentData = new AppointmentData();
+        appointmentData.updateAppointment(data);
     }
 }

@@ -289,13 +289,13 @@ public class AddCentreGUI extends JFrame {
             }
 
             if(checkCode == "" && checkName == "" && checkAddress == "" && checkStock == "") {
-                String[] newDate = {centreCode, name, state, address, vaccineCode,
+                String[] newData = {centreCode, name, state, address, vaccineCode,
                         String.valueOf(stock), String.valueOf(maxStock)};
 
                 for(int i = 0; i < allData.size(); i++) {
                     if (i == editLine) {
                         for (int z = 0; z < allData.get(i).length; z++) {
-                            allData.get(i)[z] = newDate[z];
+                            allData.get(i)[z] = newData[z];
                         }
                     }
                 }

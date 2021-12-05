@@ -4,6 +4,7 @@ import Global.Global;
 import Search.Search;
 import dataset.AppointmentData;
 import dataset.VaccinationCentreData;
+import dataset.VaccineData;
 import personnel.Personnel;
 
 import javax.swing.*;
@@ -25,14 +26,16 @@ public class ManageAppointmentGUI extends JFrame {
     private String searchWord;
     private Stack<String[]> allData = new Stack<>();
     private Stack<String[]> sortData = new Stack<>();
+    private Stack<String[]> vaccineData = new Stack<>();
+    private Stack<String[]> centreData = new Stack<>();
     private Stack<Integer> index = null;
-    String[] colName = {"Centre Code", "Name", "State", "Vaccine Code", "Stock"};
+    String[] colName = {"User ID", "Name", "Tel No", "State", "Vaccine Code", "Centre Name", "Status"};
 
     public ManageAppointmentGUI(String title) {
         this.setTitle(title);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(manageAppointmentPanel);
-        this.setSize(500, 500);
+        this.setSize(550, 500);
 
         int totalData = 0;
         sortData = null;
@@ -41,6 +44,11 @@ public class ManageAppointmentGUI extends JFrame {
         if(file.exists()){
             AppointmentData appointmentData = new AppointmentData();
             allData = appointmentData.getAppointmentData();
+            VaccineData vacData = new VaccineData();
+            vaccineData = vacData.getVaccineData();
+            VaccinationCentreData vacCentreData = new VaccinationCentreData();
+            centreData = vacCentreData.getCentreData();
+
             totalData = allData.size();
 
             showTable(allData);
@@ -52,9 +60,9 @@ public class ManageAppointmentGUI extends JFrame {
                     searchTF.setText("");
 
                     Search search = new Search();
-                    index = search.searchCentre(searchWord);
-                    VaccinationCentreData centreData = new VaccinationCentreData();
-                    Stack<String[]> oldData = centreData.getCentreData();
+                    index = search.searchAppointment(searchWord);
+                    AppointmentData appointmentData = new AppointmentData();
+                    Stack<String[]> oldData = appointmentData.getAppointmentData();
                     Stack<String[]> newData = new Stack<>();
 
                     if(index != null) {
@@ -67,7 +75,7 @@ public class ManageAppointmentGUI extends JFrame {
                     else {
                         newData = oldData;
                         sortData = null;
-                        dataTotal.setText("Total data: " + centreData.getCentreData().size());
+                        dataTotal.setText("Total data: " + appointmentData.getAppointmentData().size());
                     }
 
                     showTable(newData);
@@ -92,7 +100,7 @@ public class ManageAppointmentGUI extends JFrame {
                     line = dataTable.getSelectedRow();
                 }
 
-                Personnel.addCentrePage(line, 1);
+                Personnel.editAppointmentPage(line);
                 dispose();
             }
 
@@ -120,8 +128,7 @@ public class ManageAppointmentGUI extends JFrame {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Personnel.editAppointmentPage();
-//                Personnel.personnelPage();
+                Personnel.personnelPage();
                 dispose();
             }
         });
@@ -158,8 +165,61 @@ public class ManageAppointmentGUI extends JFrame {
             public Object getValueAt(int rowIndex, int columnIndex) {
 
                 int realCol=0;
-                if(columnIndex >= 3) {
+                String status = "";
+                if(columnIndex == 0) {
+                    if(tableData.get(rowIndex)[0].equals("null")){
+                        realCol = columnIndex + 1;
+                    }
+                    else if(tableData.get(rowIndex)[1].equals("null")) {
+                        realCol = columnIndex;
+                    }
+                    return tableData.get(rowIndex)[realCol];
+                }
+                else if(columnIndex == 1 || columnIndex == 2) {
                     realCol = columnIndex + 1;
+                    return tableData.get(rowIndex)[realCol];
+                }
+                else if(columnIndex == 3) {
+                    realCol = columnIndex + 2;
+                    return tableData.get(rowIndex)[realCol];
+                }
+                else if(columnIndex == 4) {
+                    realCol = columnIndex + 4;
+                    for(int i=0; i<vaccineData.size(); i++) {
+                        if(tableData.get(rowIndex)[realCol].equals(vaccineData.get(i)[0]))
+                            return vaccineData.get(i)[1];
+                    }
+                }
+                else if(columnIndex == 5) {
+                    realCol = columnIndex + 4;
+                    for(int i=0; i<centreData.size(); i++) {
+                        if(tableData.get(rowIndex)[realCol].equals(centreData.get(i)[0]))
+                            return centreData.get(i)[1];
+                    }
+                }
+                else if(columnIndex == 6) {
+                    if(tableData.get(rowIndex)[12].equals("2")) {
+                        status = "reject";
+                    }
+                    else if(tableData.get(rowIndex)[12].equals("0")) {
+                        status = "pending";
+                    }
+                    else if(tableData.get(rowIndex)[12].equals("1") &&
+                            tableData.get(rowIndex)[10].equals("0") &&
+                            tableData.get(rowIndex)[11].equals("0")) {
+                        status = "1st dose";
+                    }
+                    else if(tableData.get(rowIndex)[12].equals("1") &&
+                            tableData.get(rowIndex)[10].equals("1") &&
+                            tableData.get(rowIndex)[11].equals("0")) {
+                        status = "2nd dose";
+                    }
+                    else if(tableData.get(rowIndex)[12].equals("1") &&
+                            tableData.get(rowIndex)[10].equals("1") &&
+                            tableData.get(rowIndex)[11].equals("1")) {
+                        status = "complete";
+                    }
+                    return status;
                 }
                 else {
                     realCol = columnIndex;
@@ -170,15 +230,6 @@ public class ManageAppointmentGUI extends JFrame {
             @Override
             public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
 
-                int realCol=0;
-                if(columnIndex >= 3) {
-                    realCol = columnIndex + 1;
-                }
-                else {
-                    realCol = columnIndex;
-                }
-
-                tableData.get(rowIndex)[realCol] = (String) aValue;
             }
 
             @Override
