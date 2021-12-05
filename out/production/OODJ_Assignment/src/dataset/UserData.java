@@ -60,23 +60,6 @@ public class UserData {
         return summary;
     }
 
-    public void countLines() {
-        try(BufferedReader in = new BufferedReader(new FileReader(Global.userFile));) {
-            userNo=0;
-            for(int i=0;in.readLine()!=null;i++){
-                userNo++;
-            }
-            System.out.println("number of lines:"+userNo);
-        }
-        catch (FileNotFoundException ex) {
-            JOptionPane.showMessageDialog(new JFrame(), "File not exist!",
-                    "User Data", JOptionPane.ERROR_MESSAGE);
-        }
-        catch (IOException ex) {
-            Logger.getLogger(UserData.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
     public void readAll() {
         String usrData[], line;
         try(BufferedReader in = new BufferedReader(new FileReader(Global.userFile));) {

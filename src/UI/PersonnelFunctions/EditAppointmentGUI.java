@@ -1,7 +1,6 @@
 package UI.PersonnelFunctions;
 
 import Global.Global;
-import client.People;
 import dataset.AppointmentData;
 import dataset.VaccinationCentreData;
 import dataset.VaccineData;
@@ -14,10 +13,8 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
@@ -32,7 +29,6 @@ public class EditAppointmentGUI extends JFrame{
     private JCheckBox isDone2CheckBox;
     private JTextField icTF;
     private JTextArea addressTF;
-    private JComboBox vaccineCodeCB;
     private JDatePickerImpl dose1Date;
     private JTextField passportTF;
     private JTextField nameTF;
@@ -40,6 +36,7 @@ public class EditAppointmentGUI extends JFrame{
     private JDatePickerImpl dose2Date;
     private JComboBox centreCB;
     private JTextField stateTF;
+    private JTextField vaccineCodeTF;
     private JDatePanelImpl datePanel1;
     private JDatePanelImpl datePanel2;
     private Stack<String[]> allData = new Stack<>();
@@ -67,6 +64,7 @@ public class EditAppointmentGUI extends JFrame{
         telTF.setEditable(false);
         addressTF.setEditable(false);
         stateTF.setEditable(false);
+        vaccineCodeTF.setEditable(false);
 
         File file = new File(Global.vaccineFile);
         if(file.exists()) {
@@ -82,14 +80,6 @@ public class EditAppointmentGUI extends JFrame{
             }
         }
 
-        vaccineCodeCB.addItem("null");
-        for (int i=0; i<vaccineData.size(); i++) {
-            if(centreData.get(centreIndex.get(centreCB.getSelectedIndex()))[4].equals(vaccineData.get(i)[0])){
-                vaccineCodeCB.addItem(vaccineData.get(i)[0] + " - " + vaccineData.get(i)[1]);
-                vaccineIndex.push(i);
-            }
-        }
-
         if(editLine != -1) {
             if(allData != null) {
                 String item = "null";
@@ -97,6 +87,10 @@ public class EditAppointmentGUI extends JFrame{
                 if(!allData.get(editLine)[12].equals("1")){
                     isDone1CheckBox.setEnabled(false);
                     isDone2CheckBox.setEnabled(false);
+                }
+
+                if(allData.get(editLine)[12].equals("1")){
+                    centreCB.setEnabled(false);
                 }
 
                 icTF.setText(allData.get(editLine)[0]);
@@ -113,10 +107,11 @@ public class EditAppointmentGUI extends JFrame{
                 centreCB.setSelectedItem(item);
 
                 for(int i=0; i<vaccineData.size(); i++) {
-                    if(allData.get(editLine)[8].equals(vaccineData.get(i)[0]))
+                    if(allData.get(editLine)[8].equals(vaccineData.get(i)[0])){
                         item = vaccineData.get(i)[0] + " - " + vaccineData.get(i)[1];
+                    }
                 }
-                vaccineCodeCB.setSelectedItem(item);
+                vaccineCodeTF.setText(item);
 
                 isDone1CheckBox.setSelected(allData.get(editLine)[10].equals("1"));
                 isDone2CheckBox.setSelected(allData.get(editLine)[11].equals("1"));
@@ -219,11 +214,12 @@ public class EditAppointmentGUI extends JFrame{
                         checkCentreCode = "Select a centre.\n";
                     }
 
-                    if(!vaccineCodeCB.getSelectedItem().equals("null")) {
-                        vacCode = vaccineData.get(vaccineIndex.get(vaccineCodeCB.getSelectedIndex()-1))[0];
+                    if(!vaccineCodeTF.getText().isEmpty()) {
+                        String[] vac = vaccineCodeTF.getText().split(" - ");
+                        vacCode = vac[0];
                     }
                     else {
-                        checkVacCode = "Select a vaccine.\n";
+                        checkVacCode = "Vaccine is empty.\n";
                     }
 
                     if(isConfirm.equals("1")) {
@@ -241,24 +237,38 @@ public class EditAppointmentGUI extends JFrame{
                                 String.valueOf(telNo), address, state,
                                 vac1, vac2, vacCode,
                                 centreCode, isDone1, isDone2, isConfirm};
+                        Boolean isChange=false;
 
                         for(int i = 0; i < allData.size(); i++) {
                             if (i == editLine) {
                                 for (int z = 0; z < allData.get(i).length; z++) {
-                                    allData.get(i)[z] = newData[z];
+                                    if(z==8){
+                                        if(!allData.get(i)[z].equals("null")){
+                                            isChange = false;
+                                        }
+                                        else {
+                                            allData.get(i)[z] = newData[z];
+                                            isChange=true;
+                                        }
+                                    }
+                                    else {
+                                        allData.get(i)[z] = newData[z];
+                                    }
                                 }
                             }
                         }
 
-                        for(int j = 0; j < centreData.size(); j++) {
-                            if (j == centreIndex.get(centreCB.getSelectedIndex() -1)) {
-                                int newStock = Integer.parseInt(centreData.get(j)[5]) - 2;
-                                centreData.get(j)[5] = String.valueOf(newStock);
+                        if(isChange) {
+                            for(int j = 0; j < centreData.size(); j++) {
+                                if (j == centreIndex.get(centreCB.getSelectedIndex() -1)) {
+                                    int newStock = Integer.parseInt(centreData.get(j)[5]) - 2;
+                                    centreData.get(j)[5] = String.valueOf(newStock);
+                                }
                             }
+                            Personnel.updateCentre(centreData);
                         }
 
                         Personnel.updateAppointment(allData);
-                        Personnel.updateCentre(centreData);
                         JOptionPane.showMessageDialog(new JFrame(), "The appointment had been updated.",
                                 "Edit Appointment", JOptionPane.INFORMATION_MESSAGE);
 
@@ -331,13 +341,9 @@ public class EditAppointmentGUI extends JFrame{
         centreCB.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                vaccineCodeCB.removeAllItems();
-                vaccineIndex.clear();
-                vaccineCodeCB.addItem("null");
                 for (int i=0; i<vaccineData.size(); i++) {
                     if(centreData.get(centreIndex.get(centreCB.getSelectedIndex()-1))[4].equals(vaccineData.get(i)[0])){
-                        vaccineCodeCB.addItem(vaccineData.get(i)[0] + " - " + vaccineData.get(i)[1]);
-                        vaccineIndex.push(i);
+                        vaccineCodeTF.setText(vaccineData.get(i)[0] + " - " + vaccineData.get(i)[1]);
                     }
                 }
             }

@@ -9,12 +9,10 @@ import dataset.AppointmentData;
 import javax.swing.*;
 import java.util.Stack;
 
-public class User {
+public abstract class User {
 
     private static String title = "COVID-19 Vaccination System";
     private static String[] userData;
-
-    public User() {}
 
     public User(String[] userData) {
         this.userData = userData;
