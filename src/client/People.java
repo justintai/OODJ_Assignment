@@ -2,6 +2,7 @@ package client;
 
 import UI.IndexGUI;
 import UI.ManageAppointmentGUI;
+import UI.VaccinationStatusGUI;
 import dataset.AppointmentData;
 import dataset.VaccinationCentreData;
 import dataset.VaccineData;
@@ -33,5 +34,11 @@ public class People extends User {
         manageAppointmentGUI.setLocationRelativeTo(null);
         manageAppointmentGUI.setVisible(true);
 
+    }
+
+    public static void vaccinationStatus() {
+        VaccinationStatusGUI vaccinationStatusGUI = new VaccinationStatusGUI(title, peopleData);
+        vaccinationStatusGUI.setLocationRelativeTo(null);
+        vaccinationStatusGUI.setVisible(true);
     }
 }

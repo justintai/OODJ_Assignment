@@ -1,12 +1,11 @@
 package UI.PersonnelFunctions;
 
 import Global.Global;
-import Search.Search;
+import Search.PersonnelSearch;
 import dataset.VaccineData;
 import personnel.Personnel;
 
 import javax.swing.*;
-import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 import java.awt.event.ActionEvent;
@@ -14,7 +13,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
-import java.util.Arrays;
 import java.util.Stack;
 
 public class ManageVaccineGUI extends JFrame{
@@ -52,8 +50,8 @@ public class ManageVaccineGUI extends JFrame{
                     searchWord = searchTF.getText();
                     searchTF.setText("");
 
-                    Search search = new Search();
-                    index = search.searchVaccine(searchWord);
+                    PersonnelSearch personnelSearch = new PersonnelSearch();
+                    index = personnelSearch.searchVaccine(searchWord);
                     VaccineData vaccineData = new VaccineData();
                     Stack<String[]> oldData = vaccineData.getVaccineData();
                     Stack<String[]> newData = new Stack<>();

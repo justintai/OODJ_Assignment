@@ -1,7 +1,7 @@
 package UI.PersonnelFunctions;
 
 import Global.Global;
-import Search.Search;
+import Search.PersonnelSearch;
 import dataset.VaccinationCentreData;
 import personnel.Personnel;
 
@@ -51,8 +51,8 @@ public class ManageCentreGUI extends JFrame{
                     searchWord = searchTF.getText();
                     searchTF.setText("");
 
-                    Search search = new Search();
-                    index = search.searchCentre(searchWord);
+                    PersonnelSearch personnelSearch = new PersonnelSearch();
+                    index = personnelSearch.searchCentre(searchWord);
                     VaccinationCentreData centreData = new VaccinationCentreData();
                     Stack<String[]> oldData = centreData.getCentreData();
                     Stack<String[]> newData = new Stack<>();

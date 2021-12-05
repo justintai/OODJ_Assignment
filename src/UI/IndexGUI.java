@@ -75,12 +75,22 @@ public class IndexGUI extends JFrame{
                             People.manageAppointment(i);
                             dispose();
                         } else {
-                            JOptionPane.showMessageDialog(new JFrame(), "Please Register Vaccination Programme First !", "Vaccine Programme", JOptionPane.WARNING_MESSAGE);
+                            JOptionPane.showMessageDialog(new JFrame(),
+                                    "Please Register Vaccination Programme First !",
+                                    "Vaccine Programme", JOptionPane.WARNING_MESSAGE);
                         }
                     }
 
                 }
 
+            }
+        });
+
+        vaccinationStatusButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                People.vaccinationStatus();
+                dispose();
             }
         });
     }

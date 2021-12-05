@@ -1,7 +1,7 @@
 package UI.PersonnelFunctions;
 
 import Global.Global;
-import Search.Search;
+import Search.PersonnelSearch;
 import dataset.AppointmentData;
 import dataset.VaccinationCentreData;
 import dataset.VaccineData;
@@ -59,8 +59,8 @@ public class ManageAppointmentGUI extends JFrame {
                     searchWord = searchTF.getText();
                     searchTF.setText("");
 
-                    Search search = new Search();
-                    index = search.searchAppointment(searchWord);
+                    PersonnelSearch personnelSearch = new PersonnelSearch();
+                    index = personnelSearch.searchAppointment(searchWord);
                     AppointmentData appointmentData = new AppointmentData();
                     Stack<String[]> oldData = appointmentData.getAppointmentData();
                     Stack<String[]> newData = new Stack<>();

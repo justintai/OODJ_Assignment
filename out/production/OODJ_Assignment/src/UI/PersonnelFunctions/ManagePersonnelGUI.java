@@ -1,9 +1,8 @@
 package UI.PersonnelFunctions;
 
 import Global.Global;
-import Search.Search;
+import Search.PersonnelSearch;
 import dataset.UserData;
-import dataset.VaccineData;
 import personnel.Personnel;
 
 import javax.swing.*;
@@ -41,7 +40,7 @@ public class ManagePersonnelGUI extends JFrame {
             UserData userData = new UserData();
             allData = userData.getUserData();
 
-            Search personnelData = new Search();
+            PersonnelSearch personnelData = new PersonnelSearch();
             index = personnelData.searchPersonnel("null");
             totalData = index.size();
 
@@ -57,8 +56,8 @@ public class ManagePersonnelGUI extends JFrame {
                     searchWord = searchTF.getText();
                     searchTF.setText("");
 
-                    Search search = new Search();
-                    index = search.searchPersonnel(searchWord);
+                    PersonnelSearch personnelSearch = new PersonnelSearch();
+                    index = personnelSearch.searchPersonnel(searchWord);
                     Stack<String[]> oldData = allData;
                     Stack<String[]> newData = new Stack<>();
 
