@@ -45,7 +45,7 @@ public class EditAppointmentGUI extends JFrame{
     private Stack<String[]> allData = new Stack<>();
     private Stack<String[]> centreData = new Stack<>();
     private Stack<String[]> vaccineData = new Stack<>();
-    private Stack<Integer> centreIndex = new Stack<>();
+    private static Stack<Integer> centreIndex = new Stack<>();
     private Stack<Integer> vaccineIndex = new Stack<>();
     private int editLine;
 
@@ -105,16 +105,19 @@ public class EditAppointmentGUI extends JFrame{
                 telTF.setText(allData.get(editLine)[3]);
                 addressTF.setText(allData.get(editLine)[4]);
                 stateTF.setText(allData.get(editLine)[5]);
-                for(int i=0; i<vaccineData.size(); i++) {
-                    if(allData.get(editLine)[8].equals(vaccineData.get(i)[0]))
-                        item = vaccineData.get(i)[0] + " - " + vaccineData.get(i)[1];
-                }
-                vaccineCodeCB.setSelectedItem(item);
+
                 for(int i=0; i<centreData.size(); i++) {
                     if(allData.get(editLine)[9].equals(centreData.get(i)[0]))
                         item = centreData.get(i)[0] + " - " + centreData.get(i)[1];
                 }
                 centreCB.setSelectedItem(item);
+
+                for(int i=0; i<vaccineData.size(); i++) {
+                    if(allData.get(editLine)[8].equals(vaccineData.get(i)[0]))
+                        item = vaccineData.get(i)[0] + " - " + vaccineData.get(i)[1];
+                }
+                vaccineCodeCB.setSelectedItem(item);
+
                 isDone1CheckBox.setSelected(allData.get(editLine)[10].equals("1"));
                 isDone2CheckBox.setSelected(allData.get(editLine)[11].equals("1"));
 
@@ -320,8 +323,22 @@ public class EditAppointmentGUI extends JFrame{
                     dose2Date.getModel().setDate(Integer.parseInt(dateData2[2]),
                             Integer.parseInt(dateData2[1]) - 1,
                             Integer.parseInt(dateData2[0]));
-                    System.out.println(dose2Date);
                     dose2Date.getModel().setSelected(true);
+                }
+            }
+        });
+
+        centreCB.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vaccineCodeCB.removeAllItems();
+                vaccineIndex.clear();
+                vaccineCodeCB.addItem("null");
+                for (int i=0; i<vaccineData.size(); i++) {
+                    if(centreData.get(centreIndex.get(centreCB.getSelectedIndex()-1))[4].equals(vaccineData.get(i)[0])){
+                        vaccineCodeCB.addItem(vaccineData.get(i)[0] + " - " + vaccineData.get(i)[1]);
+                        vaccineIndex.push(i);
+                    }
                 }
             }
         });

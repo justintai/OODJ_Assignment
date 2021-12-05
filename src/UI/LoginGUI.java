@@ -37,37 +37,52 @@ public class LoginGUI extends JFrame {
         loginBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String checkUser="", checkPass="";
-
-                if(!userTF.getText().isEmpty() && !passTF.getText().isEmpty()) {
-                    UserData data = new UserData();
-                    String[] usrData = data.checkLogin(userTF.getText(), passTF.getText());
-
-                    if(usrData != null){
-                        if(usrData[11].equals("0")) {
-                            People people = new People(usrData);
-                            People.peoplePage();
-                            dispose();
-                        }
-                        else if(usrData[11].equals("1")) {
-                            Personnel personnel = new Personnel(usrData);
-                            personnel.personnelPage();
-                            dispose();
-                        }
-                    }
-                }
-                else {
-                    if(userTF.getText().isEmpty())
-                        checkUser = "Username (IC No or Passport No).\n";
-
-                    if(passTF.getText().isEmpty())
-                        checkPass = "Your password.\n";
-
-                    JOptionPane.showMessageDialog(new JFrame(), "Please enter: \n" + checkUser + checkPass,
-                            "Register", JOptionPane.ERROR_MESSAGE);
-                }
+                Login();
+            }
+        });
+        userTF.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Login();
+            }
+        });
+        passTF.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Login();
             }
         });
     }
 
+    private void Login() {
+        String checkUser="", checkPass="";
+
+        if(!userTF.getText().isEmpty() && !passTF.getText().isEmpty()) {
+            UserData data = new UserData();
+            String[] usrData = data.checkLogin(userTF.getText(), passTF.getText());
+
+            if(usrData != null){
+                if(usrData[11].equals("0")) {
+                    People people = new People(usrData);
+                    People.peoplePage();
+                    dispose();
+                }
+                else if(usrData[11].equals("1")) {
+                    Personnel personnel = new Personnel(usrData);
+                    personnel.personnelPage();
+                    dispose();
+                }
+            }
+        }
+        else {
+            if(userTF.getText().isEmpty())
+                checkUser = "Username (IC No or Passport No).\n";
+
+            if(passTF.getText().isEmpty())
+                checkPass = "Your password.\n";
+
+            JOptionPane.showMessageDialog(new JFrame(), "Please enter: \n" + checkUser + checkPass,
+                    "Register", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 }
