@@ -31,21 +31,35 @@ public class RegisterAppointmentGUI extends JFrame{
         //read file check existence
         for(int i = 0; i < apptData.size(); i++)
         {
-            if(userData[0].equals(apptData.get(i)[0]) || userData[1].equals(apptData.get(i)[1]))
+            if(!userData[0].equals(apptData.get(i)[0]) || !apptData.get(i)[1].equals(userData[1]))
+            {}
+            else
             {
-                applyButton.setText("Update");
-                addressTA.setText(apptData.get(i)[4]);
-                stateCB.setSelectedItem(apptData.get(i)[5]);
+                if(apptData.get(i)[4].equals("null"))
+                {
+                    applyButton.setText("Apply");
+                    addressTA.setText("");
+                    stateCB.setSelectedItem("");
+                }
+                else
+                {
+                    applyButton.setText("Update");
+                    addressTA.setText(apptData.get(i)[4]);
+                    stateCB.setSelectedItem(apptData.get(i)[5]);
+                }
             }
         }
 
         for(int i = 0; i < apptData.size(); i++) {
-            if (userData[0].equals(apptData.get(i)[0]) || userData[1].equals(apptData.get(i)[1])) {
-                if (apptData.get(i)[8].equals("null") || apptData.get(i)[9].equals("null")) {
-                    successLB.setVisible(false);
+            if (!apptData.get(i)[0].equals(userData[0]) || !apptData.get(i)[1].equals(userData[1])) {
+
+            } else {
+                if (!apptData.get(i)[8].equals("null") && !apptData.get(i)[9].equals("null")) {
+                    successLB.setVisible(true);
                 }
                 else{
-                    successLB.setVisible(true);
+                    successLB.setVisible(false);
+
                 }
             }
         }
@@ -108,8 +122,11 @@ public class RegisterAppointmentGUI extends JFrame{
                 People people = new People(userData);
                 int found  = 0;
                 for(int i = 0; i < apptData.size(); i++) {
-                    if (userData[0].equals(apptData.get(i)[0]) || userData[1].equals(apptData.get(i)[1])) {
-
+                    if (!apptData.get(i)[0].equals(userData[0]) || !apptData.get(i)[1].equals(userData[1])) {
+                        found = 0;
+                    }
+                    else
+                    {
                         if (!apptData.get(i)[8].equals("null") || !apptData.get(i)[9].equals("null")) {
                             JOptionPane.showConfirmDialog(null, "You have succesfully join the vaccination programme, please proceed to vaccination appointment", "Vaccination Programme Approve!", JOptionPane.DEFAULT_OPTION);
                             people.peoplePage();
@@ -158,10 +175,15 @@ public class RegisterAppointmentGUI extends JFrame{
 
                                 for(int i = 0; i < apptData.size(); i++)
                                 {
-                                    if(userData[0].equals(apptData.get(i)[0]) || userData[1].equals(apptData.get(i)[1]))
+                                    if(!userData[0].equals(apptData.get(i)[0]) || !userData[1].equals(apptData.get(i)[1]))
+                                    {
+                                        complete = 0;
+                                    }
+                                    else
                                     {
                                         complete = 1;
                                         appointmentData.updateAppointment();
+                                        break;
                                     }
                                 }
 

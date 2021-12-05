@@ -96,34 +96,80 @@ public class ManageAppointmentGUI extends JFrame {
         approveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                int check = JOptionPane.showConfirmDialog(null,"Acceptance vaccine confirmation", "Confirmation", JOptionPane.YES_NO_OPTION);
-                if(check == 0 && currentUser != -1)
+                for(int i = 0; i < allData.size(); i++)
                 {
-                    allData.get(currentUser)[12] = "1";
-                    People.updateAppointment(allData);
-                    JOptionPane.showMessageDialog(new JFrame(), "You had confirmed the vaccination appointment.",
-                            "Appointment", JOptionPane.INFORMATION_MESSAGE);
-                    People.peoplePage();
-                    dispose();
+                    if(!userData[0].equals(allData.get(i)[0]) || !userData[1].equals(allData.get(i)[1]))
+                    {
+
+                    } else {
+                        if(allData.get(i)[12].equals("0"))
+                        {
+                            int check = JOptionPane.showConfirmDialog(null,"Acceptance vaccine confirmation", "Confirmation", JOptionPane.YES_NO_OPTION);
+                            if(check == 0 && currentUser != -1)
+                            {
+                                allData.get(currentUser)[12] = "1";
+                                People.updateAppointment(allData);
+                                JOptionPane.showMessageDialog(new JFrame(), "You had confirmed the vaccination appointment.",
+                                        "Appointment", JOptionPane.INFORMATION_MESSAGE);
+                                People.peoplePage();
+                                dispose();
+                            }
+                        }
+                        else if(allData.get(i)[12].equals("1")){
+                            JOptionPane.showMessageDialog(new JFrame(),
+                                    "You Have Already Agreed to Join the Vaccination Programme !",
+                                    "Vaccine Programme", JOptionPane.WARNING_MESSAGE);
+                        }
+                        else
+                        {
+                            JOptionPane.showMessageDialog(new JFrame(),
+                                    "You Have Already Rejected the Vaccination Programme !",
+                                    "Vaccine Programme", JOptionPane.WARNING_MESSAGE);
+                        }
+                    }
+
                 }
+
             }
         });
         rejectButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                int check = JOptionPane.showConfirmDialog(null,
-                        "Do you want to reject the vaccine?", "Confirmation",
-                        JOptionPane.YES_NO_OPTION);
-                if(check == 0 && currentUser != -1)
+                for(int i = 0; i < allData.size(); i++)
                 {
-                    allData.get(currentUser)[12] = "2";
-                    People.updateAppointment(allData);
-                    JOptionPane.showMessageDialog(new JFrame(), "You had rejected the vaccination appointment.",
-                            "Appointment", JOptionPane.INFORMATION_MESSAGE);
-                    People.peoplePage();
-                    dispose();
-                }
+                    if(!userData[0].equals(allData.get(i)[0]) || !userData[1].equals(allData.get(i)[1]))
+                    {
 
+                    }
+                    else {
+                        if(allData.get(i)[12].equals("0"))
+                        {
+                            int check = JOptionPane.showConfirmDialog(null,
+                                    "Do you want to reject the vaccine?", "Confirmation",
+                                    JOptionPane.YES_NO_OPTION);
+                            if(check == 0 && currentUser != -1)
+                            {
+                                allData.get(currentUser)[12] = "2";
+                                People.updateAppointment(allData);
+                                JOptionPane.showMessageDialog(new JFrame(), "You had rejected the vaccination appointment.",
+                                        "Appointment", JOptionPane.INFORMATION_MESSAGE);
+                                People.peoplePage();
+                                dispose();
+                            }
+                        }
+                        else if(allData.get(i)[12].equals("1")){
+                            JOptionPane.showMessageDialog(new JFrame(),
+                                    "You Have Already Agreed to Join the Vaccination Programme !",
+                                    "Vaccine Programme", JOptionPane.WARNING_MESSAGE);
+                        }
+                        else
+                        {
+                            JOptionPane.showMessageDialog(new JFrame(),
+                                    "You Have Already Rejected the Vaccination Programme !",
+                                    "Vaccine Programme", JOptionPane.WARNING_MESSAGE);
+                        }
+                    }
+                }
             }
         });
         backButton.addActionListener(new ActionListener() {

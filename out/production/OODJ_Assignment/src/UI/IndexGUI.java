@@ -68,15 +68,17 @@ public class IndexGUI extends JFrame{
                 Stack<String[]> apptData = appointmentData.getAppointmentData();
                 for(int i = 0; i < apptData.size(); i++)
                 {
-                    if(userData[0].equals(apptData.get(i)[0]) || userData[1].equals(apptData.get(i)[1]))
+                    if(!userData[0].equals(apptData.get(i)[0]) || !userData[1].equals(apptData.get(i)[1]))
                     {
+
+                    } else {
                         if((!apptData.get(i)[8].equals("null")) && (!apptData.get(i)[9].equals("null")))
                         {
                             People.manageAppointment(i);
                             dispose();
                         } else {
                             JOptionPane.showMessageDialog(new JFrame(),
-                                    "Please Register Vaccination Programme First !",
+                                    "Please Register Vaccination Programme First and Check Appointment Status in Join Vaccination",
                                     "Vaccine Programme", JOptionPane.WARNING_MESSAGE);
                         }
                     }
