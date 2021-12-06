@@ -2,6 +2,7 @@ package UI;
 
 import client.People;
 import dataset.AppointmentData;
+import personnel.Personnel;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -110,7 +111,7 @@ public class RegisterAppointmentGUI extends JFrame{
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 People people = new People(userData);
-                people.peoplePage();
+                people.userPage();
                 dispose();
             }
         });
@@ -129,7 +130,7 @@ public class RegisterAppointmentGUI extends JFrame{
                     {
                         if (!apptData.get(i)[8].equals("null") || !apptData.get(i)[9].equals("null")) {
                             JOptionPane.showConfirmDialog(null, "You have succesfully join the vaccination programme, please proceed to vaccination appointment", "Vaccination Programme Approve!", JOptionPane.DEFAULT_OPTION);
-                            people.peoplePage();
+                            people.userPage();
                             found = 1;
                             dispose();
                         }
@@ -192,7 +193,7 @@ public class RegisterAppointmentGUI extends JFrame{
                                     appointmentData.writeAllAppointment();
                                 }
 
-                                people.peoplePage();
+                                people.userPage();
                                 dispose();
                             }
 

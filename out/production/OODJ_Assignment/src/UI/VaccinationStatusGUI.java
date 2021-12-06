@@ -109,7 +109,8 @@ public class VaccinationStatusGUI extends JFrame{
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                People.peoplePage();
+                People people = new People();
+                people.userPage();
                 dispose();
             }
         });

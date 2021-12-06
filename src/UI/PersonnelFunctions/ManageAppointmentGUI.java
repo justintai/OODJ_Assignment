@@ -128,7 +128,8 @@ public class ManageAppointmentGUI extends JFrame {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Personnel.personnelPage();
+                Personnel personnel = new Personnel();
+                personnel.userPage();
                 dispose();
             }
         });

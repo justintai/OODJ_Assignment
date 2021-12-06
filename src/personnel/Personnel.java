@@ -14,6 +14,8 @@ public class Personnel extends User {
     private static String title;
     private static String[] personnelData;
 
+    public Personnel(){}
+
     public Personnel(String[] usrData) {
         super(usrData);
         this.title = super.getTitle();
@@ -25,7 +27,7 @@ public class Personnel extends User {
         this.title = super.getTitle();
     }
 
-    public static void personnelPage() {
+    public void userPage() {
         JFrame personnelPage = new PersonnelGUI(title, personnelData);
         personnelPage.setLocationRelativeTo(null);
         personnelPage.setVisible(true);

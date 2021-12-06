@@ -108,10 +108,11 @@ public class ManageAppointmentGUI extends JFrame {
                             if(check == 0 && currentUser != -1)
                             {
                                 allData.get(currentUser)[12] = "1";
-                                People.updateAppointment(allData);
+                                People people = new People();
+                                people.updateAppointment(allData);
                                 JOptionPane.showMessageDialog(new JFrame(), "You had confirmed the vaccination appointment.",
                                         "Appointment", JOptionPane.INFORMATION_MESSAGE);
-                                People.peoplePage();
+                                people.userPage();
                                 dispose();
                             }
                         }
@@ -150,10 +151,11 @@ public class ManageAppointmentGUI extends JFrame {
                             if(check == 0 && currentUser != -1)
                             {
                                 allData.get(currentUser)[12] = "2";
-                                People.updateAppointment(allData);
+                                People people = new People();
+                                people.updateAppointment(allData);
                                 JOptionPane.showMessageDialog(new JFrame(), "You had rejected the vaccination appointment.",
                                         "Appointment", JOptionPane.INFORMATION_MESSAGE);
-                                People.peoplePage();
+                                people.userPage();
                                 dispose();
                             }
                         }
@@ -176,7 +178,7 @@ public class ManageAppointmentGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 People people = new People(userData);
-                people.peoplePage();
+                people.userPage();
                 dispose();
             }
         });

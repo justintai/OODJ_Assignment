@@ -79,7 +79,7 @@ public class UpdateProfileGUI extends JFrame{
                 }
                 else{
                     People people = new People(userData);
-                    people.peoplePage();
+                    people.userPage();
                 }
                 dispose();
             }
@@ -190,7 +190,7 @@ public class UpdateProfileGUI extends JFrame{
                         }
                         else{
                             People people = new People(update);
-                            people.peoplePage();
+                            people.userPage();
                         }
                         dispose();
                     }

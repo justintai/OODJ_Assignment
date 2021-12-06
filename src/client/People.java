@@ -15,6 +15,7 @@ public class People extends User {
     private static String title;
     private static String[] peopleData;
 
+    public People() {}
 
     public People(String[] peopleData) {
         super(peopleData);
@@ -22,7 +23,7 @@ public class People extends User {
         this.peopleData = super.getUserData();
     }
 
-    public static void peoplePage() {
+    public void userPage() {
         JFrame indexPage = new IndexGUI(title, peopleData);
         indexPage.setLocationRelativeTo(null);
         indexPage.setVisible(true);
