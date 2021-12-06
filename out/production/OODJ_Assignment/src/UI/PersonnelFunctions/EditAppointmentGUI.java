@@ -93,8 +93,20 @@ public class EditAppointmentGUI extends JFrame{
                     centreCB.setEnabled(false);
                 }
 
-                icTF.setText(allData.get(editLine)[0]);
-                passportTF.setText(allData.get(editLine)[1]);
+                if(!allData.get(editLine)[0].equals("null")){
+                    icTF.setText(allData.get(editLine)[0]);
+                }
+                else {
+                    icTF.setText("");
+                }
+
+                if(!allData.get(editLine)[1].equals("null")) {
+                    passportTF.setText(allData.get(editLine)[1]);
+                }
+                else {
+                    passportTF.setText("");
+                }
+
                 nameTF.setText(allData.get(editLine)[2]);
                 telTF.setText(allData.get(editLine)[3]);
                 addressTF.setText(allData.get(editLine)[4]);
