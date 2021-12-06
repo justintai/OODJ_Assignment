@@ -12,8 +12,9 @@ import java.util.logging.Logger;
 
 public class UserData {
 
-    private String name, birthday, gender, address, email, icNo, passport, state;
-    protected String password;
+    private String name, birthday, gender,
+            address, email, icNo, 
+            passport, state, password;
     private int telNo, age, isAdmin = 0;
     private int userNo;
     private Stack<String[]> userData = new Stack<String[]>();
