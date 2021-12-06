@@ -198,7 +198,7 @@ public class RegisterAppointmentGUI extends JFrame{
                             }
 
                         } else {
-                            JOptionPane.showMessageDialog(new JFrame(), "PLease fill in your address, Telno, and confirm your address!");
+                            JOptionPane.showMessageDialog(new JFrame(), "Please fill in your address, Telno");
                         }
                     }
                     catch (NumberFormatException numberFormatException)
