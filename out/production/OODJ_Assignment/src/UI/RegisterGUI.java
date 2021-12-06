@@ -207,11 +207,16 @@ public class RegisterGUI extends JFrame {
                     String conPassword = passwordField2.getText();
                     String password = null;
                     if(!pass.isEmpty() || !conPassword.isEmpty()){
-                        if(pass.equals(conPassword)){
-                            password = pass;
+                        if(pass.length() >= 8){
+                            if(pass.equals(conPassword)){
+                                password = pass;
+                            }
+                            else{
+                                checkPassword = "The password not match!\n";
+                            }
                         }
-                        else{
-                            checkPassword = "The password not match!\n";
+                        else {
+                            checkPassword = "Password need more than 8 characters.";
                         }
                     }
                     else {
