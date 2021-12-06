@@ -177,7 +177,7 @@ public class RegisterGUI extends JFrame {
                                 if (!passportTF.getText().equals(data.get(i)[1])) {
                                     passport = passportTF.getText();
                                 } else {
-                                    checkPassport = "This passport already registered.";
+                                    checkPassport = "This passport already registered.\n";
                                 }
                             }
                         }
@@ -216,7 +216,7 @@ public class RegisterGUI extends JFrame {
                             }
                         }
                         else {
-                            checkPassword = "Password need more than 8 characters.";
+                            checkPassword = "Password need more than 8 characters.\n";
                         }
                     }
                     else {
