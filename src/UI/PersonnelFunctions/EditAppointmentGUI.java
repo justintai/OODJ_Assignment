@@ -183,8 +183,15 @@ public class EditAppointmentGUI extends JFrame{
                             isConfirm = "0";
 
                     int telNo = Integer.parseInt(telTF.getText());
-                    icNo = icTF.getText();
-                    passport = passportTF.getText();
+                    if(!icTF.getText().isEmpty()){
+                        icNo = icTF.getText();
+                        passport = "null";
+                    }
+
+                    if(!passportTF.getText().isEmpty()){
+                        passport = passportTF.getText();
+                        icNo="null";
+                    }
                     name = nameTF.getText();
                     address = addressTF.getText();
                     state = stateTF.getText();
