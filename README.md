@@ -1,5 +1,5 @@
 # OODJ_Assignment
-Using Intellij IDEA
+Using Intellij IDEA. This is a java program for arranging vacination. This program maybe applicable in Malaysia only.
 
 ## By using the JDatePickerImpl we need to add a JAR into the project.
 1. press key to get in Project Structure
